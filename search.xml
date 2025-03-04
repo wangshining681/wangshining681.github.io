@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo+Gitee 搭建人生中第一个博客 （新人特供版）</title>
+    <url>/2023/03/11/10-12-16/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>​        最初有搭建博客的想法是因为朋友建议，加上我自己也确实想开始写一些东西记录自己的学习过程，于是经过两天<del>痛苦</del>快乐的学习和尝试，我终于成功搭建起了自己第一个博客。<br>​        一开始我用的是<strong>GitHub</strong>+<strong>hexo</strong>搭建博客，但是这种方式打开和更新都太慢了，于是我又在同学的建议下用<strong>gitee</strong>+<strong>hexo</strong>的方式搭建博客，果然快了不少，这里放一下我最开始看的<a href="https://www.simon96.online/2018/10/12/hexo-tutorial/">链接</a>。讲的还是很清楚的，我在这里主要写一下我搭建过程中遇到的问题。</p>
+<p><strong>注：本文章只针对像我一样第一次建立博客的人，目的是帮助避免一些不必要的坑，大佬可自动忽略</strong></p>
+<span id="more"></span>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>​        第一步就是下载<strong>Git</strong>和<strong>Node.js</strong>，下载方式里面都有，我就不多说了。这里面最大的坑就是版本问题，一定一定一定要看好版本。我因为版本不对把<strong>Git</strong>重装了三遍，然后发现是<strong>Node.js</strong>的问题，又重装了一遍<strong>Node.js</strong>… 总之，如果你想一遍顺畅的搭好博客，一定要注意一下版本的问题，我下的<strong>Git</strong>是2.27.0-64bit，<strong>Node.js</strong>是12.16.1-x64。</p>
+<p>另一个问题是注意软件的安装路径，<strong>Node.js</strong>在默认路径安装就行，<strong>Git</strong>最好选择一个英文名的文件夹安装，这可能对<strong>Hexo</strong>安装有影响（血泪史）。</p>
+<p>安装好这两个软件后，就可以开始安装<strong>Hexo</strong>了，这是博客搭建的一个重要部分。</p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>​        准备好这两个软件，你就可以开始安装<strong>Hexo</strong>了，你可以直接把<strong>Hexo</strong>安装到<strong>GitBash</strong>打开的初始路径（打开<strong>GitBash</strong>可以直接在桌面右键，我一开始就不知道），就是Git安装的位置，但是我建议你新建一个文件夹，名字不能带汉字，例如myblog、blog、hexo等等，然后在<strong>GitBash</strong>运行以下命令来安装<strong>Hexo</strong>：</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+<p>初始化<strong>Hexo</strong>，在<strong>GitBash</strong>运行以下命令：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">hexo init <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">cd <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>新建完成后，在你安装Hexo的文件夹（叫站点目录）里会出现这些文件和文件夹:</p>
+<p><img data-src="./1.png" alt="1"></p>
+<p>​        这样，<strong>Hexo</strong>就算安装好了，安装<strong>Hexo</strong>的路径一定不能带中文，我因为这个卡了好久qwq。最后启动一下服务器，在<strong>GitBash</strong>下运行</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>​        然后你就可以用浏览器访问网址：<code>http://localhost:4000/</code>来看一下你搭建在本地的博客了，反正我当时看到后极有成就感（毕竟失败了那么多次qwq）</p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>​        这一步主要是如何建库以及把库和你的电脑连起来，上面挂的链接是把博客推送到<strong>Git Hub</strong>上，因为是一般都是国内网，所以很慢很慢，但是据说要是用自定义域名（花小钱钱）就会快不少…所以我选择把博客推送到别的地方，指<strong>Gitee</strong>，真的比<strong>Git Hub</strong>快了一万倍，步骤如下：</p>
+<ol>
+<li>先在<a href="https://gitee.com/">Gitee</a>上注册一个账号</li>
+<li>然后建立一个仓库，仓库名称要跟下图中的@的那个名字相同，划重点！！一定要一样，不然要改什么root之类的，很麻烦。我一开始因为不知道设置成不同的名字一直推送失败，自闭了很久…</li>
+<li>添加SSH key</li>
+</ol>
+<ul>
+<li><p>在<strong>Git Bash</strong>上运行以下命令创建一个SSH key，回车三下就行：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t rsa</span> </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>Git Bash</strong>上运行以下命令，可以直接获得SSH key，不用去找文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把得到的公钥添加到NEW SSH key就行（点右上方头像，在设置里）</p>
+</li>
+<li><p>可以测试以下是否添加成功，在<strong>Git Bash</strong>上添加如下命令，如果返回“You’ve successfully authenticated”就表示添加成功了：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@githee</span>.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>修改<code>_config.yml</code>(在站点目录下)。</li>
+</ol>
+<ul>
+<li><p>建议用vim或者vsnode修改</p>
+</li>
+<li><p>文件末尾修改为：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:<span class="params">&lt;Gitee账号名称&gt;</span>/<span class="params">&lt;Gitee账号名称&gt;</span>.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure>
+<p>注意：这里的账号地址指的是上面说的@里的地址</p>
+</li>
+</ul>
+<ol>
+<li>推送到<strong>Gitee</strong>。在<strong>Git Bash</strong>输入如下命令，如果返回<code>INFO Deploy done: git</code></li>
+</ol>
+<p>即成功推送：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">hexo <span class="selector-tag">g</span></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>​        登录<strong>Gitee</strong>，进入你建立的库，进入<strong>Gitee Pages</strong>，部署一下（不用改，默认的选项就可以），会生成一个网址。到这里，你的博客已经搭建在<strong>Gitee Pages</strong>上了，域名就是部署后生成的网址。</p>
+<p><img data-src="./3.png" alt="3"></p>
+<p><strong>然后你就成功拥有了一个博客，完结撒花~~</strong></p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2025/03/04/14-21-28/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>腾讯云服务器+Hexo 搭建博客（一）</title>
+    <url>/2023/03/11/11-25-44/</url>
+    <content><![CDATA[<h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>​        搭建自己的博客网站是我大一时候的想法，大一下在朋友的帮助下搭了一个部署在Gitee上的博客。当时非常开心，兴奋的写了好几篇博客，然后分享给朋友用来装逼。但是过了没几个月，热情过去之后就什么就把这个事情忘记了。</p>
+<p>​        其实花了这么长时间搭建博客，应该是要记录一些东西的，记录生活也好，记录自己学习到的东西也好。但是之前我只是把这个当作一个炫耀的工具，忘记了写博客最本质的东西。前几天突然在一个技术交流群里发现了帮助我搭博客的朋友发的文章，然后发现其实他一直在坚持更新博客，一下子感触颇多。感觉也想坚持着做一些事情，也给自己的一些经历做一些记录。</p>
+<span id="more"></span>
+<p>​        成为准研究生后，没有那么大的学业压力，每天枯燥的看论文实在受不了了，所以在工作站上重新搭了个博客，一边工作一边记录一下。这次是用腾讯云的轻量应用服务器来搭的博客，购买了一个最便宜的域名来搭的博客，比部署在Gitee上麻烦了很多，也增加了很多问题，但是用自己的域名搭建博客，感觉还是很不一样的哈哈。</p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>​        服务器我买的是腾讯云轻量应用服务器，几十块钱一年，比较便宜。本来是打算用这个整一个公众号的，没整出来，为了避免浪费就用来搭博客了。</p>
+<p>​        使用服务器很多教程会推荐使用各种各样的工具，但我建议还是用他网页自带的就好了，远程登陆挺好用的。如果要使用root权限需要使用密码登录，重置一下密码就可以了。</p>
+<p><img data-src="./image-20230311114320192.png" alt="image-20230311114320192"></p>
+<p><img data-src="./image-20230311114428850.png" alt="image-20230311114428850"></p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>​        这也是我第一次买域名，第一次购买域名的话会有首年优惠，我买了一个“xxxx.cn”的域名，才29一年，比我想的便宜好多。当时只是第一年这样，第二年就39了，感觉也不算贵。</p>
+<p><img data-src="./image-20230311114806918.png" alt="image-20230311114806918"></p>
+<p>​        购买完域名后，不要急着绑定服务器，可以先备案再绑定，因为备案的时间周期很长，我觉得完全可以备案完再绑定。</p>
+<p>​        当时我心急直接绑定了，结果网站因为没备案一直进不去，最后只能等备案完成后才能继续。</p>
+<h2 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h2><p>​        域名买回来后，一般都是不能直接使用的，需要走备案流程。这个流程相当繁琐，需要填写各种各样的信息，准备身份证正反面照片、手持身份证照片balabala</p>
+<p>​        有几个需要注意的点，一是通信地址需要注意写具体，我因为在学校直接填了学校，但是它需要你填到具体哪个宿舍或者别的地方，否则会被退回修改；第二个是网站的名字不能带姓名、博客、地点等关键字，长得像名字的假名也不行，比如“王十宇”就不行，“十宇”就可以；第三点是人脸视频核验，因为当时在手机上就可以核验，我就随便找了个地方拍的，但他的背景必须是白色背景，不是的话会需要重新拍。</p>
+<p>​        <img data-src="./image-20230311141959392.png" alt="image-20230311141959392"></p>
+<p>​        我这里备案速度还是挺快的，但是实际上可能最长需要20天，所以还是建议备案完成前先不要绑定域名。</p>
+<p>​        腾讯云初审后，会给你短信发一个链接，要在24小时内核验完成，需要注意接收短信。</p>
+<p>​        管局备案完成后，会给你发一个邮箱告诉你备案完成了，并且告诉你一个类似”陕ICP备202300xxxx号-1“的网站备案号和“陕ICP备202300xxxx号”的主题备案好，然后你还需要在公安系统进行备案。</p>
+<p>​        公安系统备案的时候，就需要填写你的备案号和主题备案号了，要注意这个流程需要在管局备案完成后的三十天内完成。</p>
+<p>​    </p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用VsCode插件或SSH命令连接服务器</title>
     <url>/2023/03/13/17-38-10/</url>
     <content><![CDATA[<p>​        记录一下使用服务器的过程，包括如何使用shell连接服务器、如何使用vscode的Remote-SSH 插件连接服务器、如何修改用户密码、如何从终端拷贝文件、免密登录等。</p>
@@ -81,67 +175,6 @@
 ]]></content>
       <tags>
         <tag>时空图神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+Gitee 搭建人生中第一个博客 （新人特供版）</title>
-    <url>/2023/03/11/10-12-16/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>​        最初有搭建博客的想法是因为朋友建议，加上我自己也确实想开始写一些东西记录自己的学习过程，于是经过两天<del>痛苦</del>快乐的学习和尝试，我终于成功搭建起了自己第一个博客。<br>​        一开始我用的是<strong>GitHub</strong>+<strong>hexo</strong>搭建博客，但是这种方式打开和更新都太慢了，于是我又在同学的建议下用<strong>gitee</strong>+<strong>hexo</strong>的方式搭建博客，果然快了不少，这里放一下我最开始看的<a href="https://www.simon96.online/2018/10/12/hexo-tutorial/">链接</a>。讲的还是很清楚的，我在这里主要写一下我搭建过程中遇到的问题。</p>
-<p><strong>注：本文章只针对像我一样第一次建立博客的人，目的是帮助避免一些不必要的坑，大佬可自动忽略</strong></p>
-<span id="more"></span>
-<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>​        第一步就是下载<strong>Git</strong>和<strong>Node.js</strong>，下载方式里面都有，我就不多说了。这里面最大的坑就是版本问题，一定一定一定要看好版本。我因为版本不对把<strong>Git</strong>重装了三遍，然后发现是<strong>Node.js</strong>的问题，又重装了一遍<strong>Node.js</strong>… 总之，如果你想一遍顺畅的搭好博客，一定要注意一下版本的问题，我下的<strong>Git</strong>是2.27.0-64bit，<strong>Node.js</strong>是12.16.1-x64。</p>
-<p>另一个问题是注意软件的安装路径，<strong>Node.js</strong>在默认路径安装就行，<strong>Git</strong>最好选择一个英文名的文件夹安装，这可能对<strong>Hexo</strong>安装有影响（血泪史）。</p>
-<p>安装好这两个软件后，就可以开始安装<strong>Hexo</strong>了，这是博客搭建的一个重要部分。</p>
-<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>​        准备好这两个软件，你就可以开始安装<strong>Hexo</strong>了，你可以直接把<strong>Hexo</strong>安装到<strong>GitBash</strong>打开的初始路径（打开<strong>GitBash</strong>可以直接在桌面右键，我一开始就不知道），就是Git安装的位置，但是我建议你新建一个文件夹，名字不能带汉字，例如myblog、blog、hexo等等，然后在<strong>GitBash</strong>运行以下命令来安装<strong>Hexo</strong>：</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
-<p>初始化<strong>Hexo</strong>，在<strong>GitBash</strong>运行以下命令：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">hexo init <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">cd <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>新建完成后，在你安装Hexo的文件夹（叫站点目录）里会出现这些文件和文件夹:</p>
-<p><img data-src="./1.png" alt="1"></p>
-<p>​        这样，<strong>Hexo</strong>就算安装好了，安装<strong>Hexo</strong>的路径一定不能带中文，我因为这个卡了好久qwq。最后启动一下服务器，在<strong>GitBash</strong>下运行</p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
-<p>​        然后你就可以用浏览器访问网址：<code>http://localhost:4000/</code>来看一下你搭建在本地的博客了，反正我当时看到后极有成就感（毕竟失败了那么多次qwq）</p>
-<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>​        这一步主要是如何建库以及把库和你的电脑连起来，上面挂的链接是把博客推送到<strong>Git Hub</strong>上，因为是一般都是国内网，所以很慢很慢，但是据说要是用自定义域名（花小钱钱）就会快不少…所以我选择把博客推送到别的地方，指<strong>Gitee</strong>，真的比<strong>Git Hub</strong>快了一万倍，步骤如下：</p>
-<ol>
-<li>先在<a href="https://gitee.com/">Gitee</a>上注册一个账号</li>
-<li>然后建立一个仓库，仓库名称要跟下图中的@的那个名字相同，划重点！！一定要一样，不然要改什么root之类的，很麻烦。我一开始因为不知道设置成不同的名字一直推送失败，自闭了很久…</li>
-<li>添加SSH key</li>
-</ol>
-<ul>
-<li><p>在<strong>Git Bash</strong>上运行以下命令创建一个SSH key，回车三下就行：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t rsa</span> </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<strong>Git Bash</strong>上运行以下命令，可以直接获得SSH key，不用去找文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>把得到的公钥添加到NEW SSH key就行（点右上方头像，在设置里）</p>
-</li>
-<li><p>可以测试以下是否添加成功，在<strong>Git Bash</strong>上添加如下命令，如果返回“You’ve successfully authenticated”就表示添加成功了：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@githee</span>.com</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol>
-<li>修改<code>_config.yml</code>(在站点目录下)。</li>
-</ol>
-<ul>
-<li><p>建议用vim或者vsnode修改</p>
-</li>
-<li><p>文件末尾修改为：</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:<span class="params">&lt;Gitee账号名称&gt;</span>/<span class="params">&lt;Gitee账号名称&gt;</span>.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure>
-<p>注意：这里的账号地址指的是上面说的@里的地址</p>
-</li>
-</ul>
-<ol>
-<li>推送到<strong>Gitee</strong>。在<strong>Git Bash</strong>输入如下命令，如果返回<code>INFO Deploy done: git</code></li>
-</ol>
-<p>即成功推送：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">hexo <span class="selector-tag">g</span></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>​        登录<strong>Gitee</strong>，进入你建立的库，进入<strong>Gitee Pages</strong>，部署一下（不用改，默认的选项就可以），会生成一个网址。到这里，你的博客已经搭建在<strong>Gitee Pages</strong>上了，域名就是部署后生成的网址。</p>
-<p><img data-src="./3.png" alt="3"></p>
-<p><strong>然后你就成功拥有了一个博客，完结撒花~~</strong></p>
-]]></content>
-      <tags>
-        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -273,34 +306,6 @@
       </tags>
   </entry>
   <entry>
-    <title>腾讯云服务器+Hexo 搭建博客（一）</title>
-    <url>/2023/03/11/11-25-44/</url>
-    <content><![CDATA[<h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>​        搭建自己的博客网站是我大一时候的想法，大一下在朋友的帮助下搭了一个部署在Gitee上的博客。当时非常开心，兴奋的写了好几篇博客，然后分享给朋友用来装逼。但是过了没几个月，热情过去之后就什么就把这个事情忘记了。</p>
-<p>​        其实花了这么长时间搭建博客，应该是要记录一些东西的，记录生活也好，记录自己学习到的东西也好。但是之前我只是把这个当作一个炫耀的工具，忘记了写博客最本质的东西。前几天突然在一个技术交流群里发现了帮助我搭博客的朋友发的文章，然后发现其实他一直在坚持更新博客，一下子感触颇多。感觉也想坚持着做一些事情，也给自己的一些经历做一些记录。</p>
-<span id="more"></span>
-<p>​        成为准研究生后，没有那么大的学业压力，每天枯燥的看论文实在受不了了，所以在工作站上重新搭了个博客，一边工作一边记录一下。这次是用腾讯云的轻量应用服务器来搭的博客，购买了一个最便宜的域名来搭的博客，比部署在Gitee上麻烦了很多，也增加了很多问题，但是用自己的域名搭建博客，感觉还是很不一样的哈哈。</p>
-<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>​        服务器我买的是腾讯云轻量应用服务器，几十块钱一年，比较便宜。本来是打算用这个整一个公众号的，没整出来，为了避免浪费就用来搭博客了。</p>
-<p>​        使用服务器很多教程会推荐使用各种各样的工具，但我建议还是用他网页自带的就好了，远程登陆挺好用的。如果要使用root权限需要使用密码登录，重置一下密码就可以了。</p>
-<p><img data-src="./image-20230311114320192.png" alt="image-20230311114320192"></p>
-<p><img data-src="./image-20230311114428850.png" alt="image-20230311114428850"></p>
-<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>​        这也是我第一次买域名，第一次购买域名的话会有首年优惠，我买了一个“xxxx.cn”的域名，才29一年，比我想的便宜好多。当时只是第一年这样，第二年就39了，感觉也不算贵。</p>
-<p><img data-src="./image-20230311114806918.png" alt="image-20230311114806918"></p>
-<p>​        购买完域名后，不要急着绑定服务器，可以先备案再绑定，因为备案的时间周期很长，我觉得完全可以备案完再绑定。</p>
-<p>​        当时我心急直接绑定了，结果网站因为没备案一直进不去，最后只能等备案完成后才能继续。</p>
-<h2 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h2><p>​        域名买回来后，一般都是不能直接使用的，需要走备案流程。这个流程相当繁琐，需要填写各种各样的信息，准备身份证正反面照片、手持身份证照片balabala</p>
-<p>​        有几个需要注意的点，一是通信地址需要注意写具体，我因为在学校直接填了学校，但是它需要你填到具体哪个宿舍或者别的地方，否则会被退回修改；第二个是网站的名字不能带姓名、博客、地点等关键字，长得像名字的假名也不行，比如“王十宇”就不行，“十宇”就可以；第三点是人脸视频核验，因为当时在手机上就可以核验，我就随便找了个地方拍的，但他的背景必须是白色背景，不是的话会需要重新拍。</p>
-<p>​        <img data-src="./image-20230311141959392.png" alt="image-20230311141959392"></p>
-<p>​        我这里备案速度还是挺快的，但是实际上可能最长需要20天，所以还是建议备案完成前先不要绑定域名。</p>
-<p>​        腾讯云初审后，会给你短信发一个链接，要在24小时内核验完成，需要注意接收短信。</p>
-<p>​        管局备案完成后，会给你发一个邮箱告诉你备案完成了，并且告诉你一个类似”陕ICP备202300xxxx号-1“的网站备案号和“陕ICP备202300xxxx号”的主题备案好，然后你还需要在公安系统进行备案。</p>
-<p>​        公安系统备案的时候，就需要填写你的备案号和主题备案号了，要注意这个流程需要在管局备案完成后的三十天内完成。</p>
-<p>​    </p>
-]]></content>
-      <tags>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>腾讯云服务器+Hexo 搭建博客（三）</title>
     <url>/2023/03/11/15-33-07/</url>
     <content><![CDATA[<h1 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h1><h2 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h2><h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>在腾讯云内申请一个免费的SSL证书。</p>
@@ -397,10 +402,5 @@
       <tags>
         <tag>博客</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/2025/03/04/14-21-28/</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
