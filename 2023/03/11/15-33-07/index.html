@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="codeva-I1OjLdTFao" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wangshining.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="进阶配置配置https申请证书在腾讯云内申请一个免费的SSL证书。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯云服务器+Hexo 搭建博客（三）">
+<meta property="og:url" content="http://www.wangshining.cn/2023/03/11/15-33-07/index.html">
+<meta property="og:site_name" content="十宇&#39;Blog">
+<meta property="og:description" content="进阶配置配置https申请证书在腾讯云内申请一个免费的SSL证书。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311153628597.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311153709277.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311153858130.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311154255884.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311154842956.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311154953981.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311155244994.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311155419423.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311155356824.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311160301923.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311160412761.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311160550828.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311161459148.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311161601353.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311161710143.png">
+<meta property="og:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311161920116.png">
+<meta property="article:published_time" content="2023-03-11T07:33:07.000Z">
+<meta property="article:modified_time" content="2023-03-13T02:38:52.000Z">
+<meta property="article:author" content="王士宁">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wangshining.cn/2023/03/11/15-33-07/image-20230311153628597.png">
+
+<link rel="canonical" href="http://www.wangshining.cn/2023/03/11/15-33-07/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>腾讯云服务器+Hexo 搭建博客（三） | 十宇'Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">十宇'Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">和有趣的人做有趣的事</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangshining.cn/2023/03/11/15-33-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/touxiang.jpg">
+      <meta itemprop="name" content="王士宁">
+      <meta itemprop="description" content="个人学习记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="十宇'Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          腾讯云服务器+Hexo 搭建博客（三）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-11 15:33:07" itemprop="dateCreated datePublished" datetime="2023-03-11T15:33:07+08:00">2023-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-13 10:38:52" itemprop="dateModified" datetime="2023-03-13T10:38:52+08:00">2023-03-13</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h1><h2 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h2><h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>在腾讯云内申请一个免费的SSL证书。</p>
+<span id="more"></span>
+<p><img data-src="./image-20230311153628597.png" alt="image-20230311153628597"></p>
+<p>下载证书（Nginx）：</p>
+<p><img data-src="./image-20230311153709277.png" alt="image-20230311153709277"></p>
+<p>解压后得到：</p>
+<p><img data-src="./image-20230311153858130.png" alt="image-20230311153858130"></p>
+<p>使用scp命令将证书文件拷贝到服务器上：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> 证书文件夹</span><br><span class="line">scp * git@公网ip:/usr/<span class="keyword">local</span>/soft/nginx/<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在服务器端修改配置文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/soft/nginx</span><br><span class="line">vim <span class="keyword">conf</span>/nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改内容如下：</p>
+<p><img data-src="./image-20230311154255884.png" alt="image-20230311154255884"></p>
+<p>在文件最后修改server_name为你的公网ip或域名、ssl_certificate为*.pem文件存放的位置、ssl_certificate_key为*.key文件存放的位置。</p>
+<p>修改location为hexo目录所在位置。</p>
+<p>修改原有端口80的监听，加一行配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">return</span> 301 https://www.xxxxxx.cn<span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="./image-20230311154842956.png" alt="image-20230311154842956"></p>
+<p>重启nginx:</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/soft/nginx/sbin</span></span><br><span class="line"><span class="string">./nginx</span> -s <span class="keyword">reload</span></span><br></pre></td></tr></table></figure>
+<h2 id="Hexo主题配置"><a href="#Hexo主题配置" class="headerlink" title="Hexo主题配置"></a>Hexo主题配置</h2><p>我是用的是next主题，配置后效果如下，如果不喜欢的话可以搜索其他博客的主题配置。</p>
+<p><img data-src="./image-20230311154953981.png" alt="image-20230311154953981"></p>
+<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><p>1.前往<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">Next主题制作团队的主页</a>下载Zip压缩包</p>
+<p><img data-src="./image-20230311155244994.png" alt="image-20230311155244994"></p>
+<ol>
+<li>下载后，解压到博客目录下的themes文件夹内</li>
+</ol>
+<p><img data-src="./image-20230311155419423.png" alt="image-20230311155419423"></p>
+<p>重命名为next:</p>
+<p><img data-src="./image-20230311155356824.png" alt="image-20230311155356824"></p>
+<ol>
+<li><p>修改站点配置文件_config.yml</p>
+<p>基础配置</p>
+<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attribute">title</span>:  					<span class="comment">#博客标题</span></span><br><span class="line"><span class="attribute">subtitle</span>: 					<span class="comment">#副标题</span></span><br><span class="line"><span class="attribute">description</span>:				<span class="comment">#网站描述 </span></span><br><span class="line"><span class="attribute">keywords</span>: 					<span class="comment">#网站关键词</span></span><br><span class="line"><span class="attribute">author</span>: 王士宁	  			  <span class="comment">#名字</span></span><br><span class="line"><span class="attribute">language</span>: zh-CN 			<span class="comment">#网站参考语言</span></span><br><span class="line"><span class="attribute">timezone</span>: &#x27;Asia/Shanghai&#x27; 	<span class="comment"># 时区</span></span><br></pre></td></tr></table></figure>
+<p>修改主题：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:<span class="comment">//hexo.io/plugins/</span></span><br><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改主题配置文件themes\next\_config.yml</p>
+<p>(1) 主题风格</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta"># scheme: Mist</span></span><br><span class="line"><span class="meta"># scheme: Pisces</span></span><br><span class="line"><span class="meta"># scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>(2) 设置导航栏菜单</p>
+<p>可自行增减功能，取消注释即可启用。</p>
+<p><img data-src="./image-20230311160301923.png" alt="image-20230311160301923"></p>
+</li>
+</ol>
+<p>（3）侧边栏设置</p>
+<p>侧边栏我设置的位置是左侧，同时设置永远显示，这里也可以根据注释修改</p>
+<p><img data-src="./image-20230311160412761.png" alt="image-20230311160412761"></p>
+<p>（4） 侧边栏头像</p>
+<p>​    url链接为图片的相对路径，在next/source目录下。</p>
+<p><img data-src="./image-20230311160550828.png" alt="image-20230311160550828"></p>
+<p>（5）社交链接</p>
+<p>这里是侧边栏链接，可以指向某个链接或某个网址。</p>
+<p>这里我只加了一个email，因为其他账号都没有发啥东西，等开始更新再添加。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">social:</span></span><br><span class="line">  <span class="meta">#GitHub: https:<span class="comment">//github.com/yourname || fab fa-github</span></span></span><br><span class="line">  E-Mail: <span class="number">2803125272</span>@qq.com || fa fa-envelope</span><br><span class="line">  <span class="meta">#Weibo: https:<span class="comment">//weibo.com/yourname || fab fa-weibo</span></span></span><br><span class="line">  <span class="meta">#Google: https:<span class="comment">//plus.google.com/yourname || fab fa-google</span></span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/yourname || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#FB Page: https:<span class="comment">//www.facebook.com/yourname || fab fa-facebook</span></span></span><br><span class="line">  <span class="meta">#StackOverflow: https:<span class="comment">//stackoverflow.com/yourname || fab fa-stack-overflow</span></span></span><br><span class="line">  <span class="meta">#YouTube: https:<span class="comment">//youtube.com/yourname || fab fa-youtube</span></span></span><br><span class="line">  <span class="meta">#Instagram: https:<span class="comment">//instagram.com/yourname || fab fa-instagram</span></span></span><br><span class="line">  <span class="meta">#Skype: skype:yourname?call|chat || fab fa-skype</span></span><br><span class="line"><span class="symbol">  </span></span><br><span class="line"><span class="symbol">social_icons:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  icons_only:</span> false</span><br><span class="line"><span class="symbol">  transition:</span> false</span><br><span class="line"></span><br><span class="line"><span class="meta"># Blog rolls</span></span><br><span class="line"><span class="symbol">links_settings:</span></span><br><span class="line"><span class="symbol">  icon:</span> fa fa-link</span><br><span class="line"><span class="symbol">  title:</span> Links</span><br><span class="line">  <span class="meta"># Available values: block | inline</span></span><br><span class="line"><span class="symbol">  layout:</span> block</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">links:</span></span><br><span class="line">  <span class="meta">#Title: http:<span class="comment">//yoursite.com</span></span></span><br></pre></td></tr></table></figure>
+<p>（6）打赏功能</p>
+<p>效果如下</p>
+<p><img data-src="./image-20230311161459148.png" alt="image-20230311161459148"></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Reward (Donate)</span></span><br><span class="line"><span class="comment"># Front-matter variable (unsupport animation).</span></span><br><span class="line"><span class="params">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="params">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="params">comment:</span> Q：如果你觉得博主写的不错，可以打赏支持一下</span><br><span class="line">  <span class="comment">#comment: Donate comment here.</span></span><br><span class="line"></span><br><span class="line"><span class="params">reward:</span></span><br><span class="line">  <span class="params">wechatpay:</span> <span class="symbol">/images/wechatpay.jpg</span></span><br><span class="line">  <span class="params">alipay:</span> <span class="symbol">/images/alipay.jpg</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
+<p>（7）关注其他发布渠道</p>
+<p><img data-src="./image-20230311161601353.png" alt="image-20230311161601353"></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="meta"># Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line"><span class="symbol">follow_me:</span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/username || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#Telegram: https:<span class="comment">//t.me/channel_name || fab fa-telegram</span></span></span><br><span class="line"><span class="symbol">  WeChat:</span> <span class="keyword">/images/</span>wechat_channel.jpg || fab fa-weixin</span><br><span class="line">  <span class="meta">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
+<p>(8) 返回顶部按钮并显示阅读进度</p>
+<p><img data-src="./image-20230311161710143.png" alt="image-20230311161710143"></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">back2top:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Back to top in sidebar.</span></span><br><span class="line">  <span class="params">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Scroll percent label in b2t button.</span></span><br><span class="line">  <span class="params">scrollpercent:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Reading progress bar</span></span><br><span class="line"><span class="params">reading_progress:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Available values: top | bottom</span></span><br><span class="line">  <span class="params">position:</span> left</span><br><span class="line">  <span class="params">color:</span> <span class="string">&quot;#37c6c0&quot;</span></span><br><span class="line">  <span class="params">height:</span> <span class="number">5</span>px</span><br></pre></td></tr></table></figure>
+<h3 id="没用但是好玩的配置"><a href="#没用但是好玩的配置" class="headerlink" title="没用但是好玩的配置"></a>没用但是好玩的配置</h3><h4 id="2D人物"><a href="#2D人物" class="headerlink" title="2D人物"></a>2D人物</h4><p>添加一个在左下角看着你的小人，没啥用但是很好玩。其实还有鼠标点击有爱心和好玩的丝线等奇奇怪怪的功能还没来得及配置，虽然没啥用，但是很有意思。</p>
+<p><img data-src="./image-20230311161920116.png" alt="image-20230311161920116"></p>
+<ol>
+<li>下载插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="comment">--save hexo-helper-live2d</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加配置文件</li>
+</ol>
+<p>​    修改站点目录下的_config.yml：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">live2d:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span>  <span class="comment"># 是否启动</span></span><br><span class="line">  <span class="params">scriptFrom:</span> local <span class="comment"># 默认</span></span><br><span class="line">  <span class="params">pluginRootPath:</span> live2dw<span class="symbol">/</span>  <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="params">pluginJsPath:</span> lib<span class="symbol">/</span>  <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">pluginModelPath:</span> assets<span class="symbol">/</span>  <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">tagMode:</span> <span class="literal">false</span>  <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="params">debug:</span> <span class="literal">false</span>  <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="params">model:</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-wanko  ## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-hibiki  ## 模型文件</span></span><br><span class="line">    <span class="params">use:</span> live2d-widget-model-koharu  <span class="comment">## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-shizuku  ## 模型文件</span></span><br><span class="line">  <span class="params">display:</span></span><br><span class="line">    <span class="params">position:</span> right <span class="comment"># 定位方向 left right top bottom</span></span><br><span class="line">    <span class="params">width:</span> <span class="number">150</span>  <span class="comment"># 小人宽度</span></span><br><span class="line">    <span class="params">height:</span> <span class="number">300</span> <span class="comment">#  小人高度</span></span><br><span class="line">    <span class="params">hOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 向 偏移</span></span><br><span class="line">    <span class="params">vOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 像 偏移</span></span><br><span class="line">  <span class="params">mobile:</span></span><br><span class="line">    <span class="params">show:</span> <span class="literal">true</span>  <span class="comment"># 手机端是否显示</span></span><br><span class="line">  <span class="params">react:</span></span><br><span class="line">    <span class="params">opacity:</span> <span class="number">0.7</span>  <span class="comment"># 模型透明度</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装你喜欢的模型</li>
+</ol>
+<p>模型名称如下：</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt;live2d-widget-model-chitose</span><br><span class="line">&gt;live2d-widget-model-epsilon2_1</span><br><span class="line">&gt;live2d-widget-model-gf</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">01</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">02</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haruto</span><br><span class="line">&gt;live2d-widget-model-hibiki</span><br><span class="line">&gt;live2d-widget-model-hijiki</span><br><span class="line">&gt;live2d-widget-model-izumi</span><br><span class="line">&gt;live2d-widget-model-koharu</span><br><span class="line">&gt;live2d-widget-model-miku</span><br><span class="line">&gt;live2d-widget-model-ni-j</span><br><span class="line">&gt;live2d-widget-model-nico</span><br><span class="line">&gt;live2d-widget-model-nietzsche</span><br><span class="line">&gt;live2d-widget-model-nipsilon</span><br><span class="line">&gt;live2d-widget-model-nito</span><br><span class="line">&gt;live2d-widget-model-shizuku</span><br><span class="line">&gt;live2d-widget-model-tororo</span><br><span class="line">&gt;live2d-widget-model-tsumiki</span><br><span class="line">&gt;live2d-widget-model-unitychan</span><br><span class="line">&gt;live2d-widget-model-wanko</span><br><span class="line">&gt;live2d-widget-model-z16</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>可直接通过命令下载，比如要下载wanko模型就用：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="comment">--save live2d-widget-model-wanko</span></span><br></pre></td></tr></table></figure>
+<p>因为是在站点目录下修改的配置文件，所以需要修改路径：</p>
+<p>在博客目录下创建一个文件夹live2d_models，在node_modules中找到下载好的2d人物模型，复制到live2d_models文件夹下。</p>
+<p>修改配置文件：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model:</span><br><span class="line">    # use: live2d-widget-model-wanko  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-hibiki  ## 模型文件</span><br><span class="line">    use: live2d-widget-model-koharu  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-shizuku  ## 模型文件</span><br></pre></td></tr></table></figure>
+<p>use后修改为模型名称即可完成修改。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果你觉得博主写的不错，可以打赏支持一下</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="王士宁 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="王士宁 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王士宁
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.wangshining.cn/2023/03/11/15-33-07/" title="腾讯云服务器+Hexo 搭建博客（三）">http://www.wangshining.cn/2023/03/11/15-33-07/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/11/14-27-31/" rel="prev" title="腾讯云服务器+Hexo 搭建博客（二）">
+      <i class="fa fa-chevron-left"></i> 腾讯云服务器+Hexo 搭建博客（二）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/11/16-56-27/" rel="next" title="时空图神经网络综述">
+      时空图神经网络综述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">进阶配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEhttps"><span class="nav-number">1.1.</span> <span class="nav-text">配置https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.1.</span> <span class="nav-text">申请证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">修改配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">Hexo主题配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEnext%E4%B8%BB%E9%A2%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">配置next主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E7%94%A8%E4%BD%86%E6%98%AF%E5%A5%BD%E7%8E%A9%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">没用但是好玩的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2D%E4%BA%BA%E7%89%A9"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2D人物</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="王士宁"
+      src="/uploads/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">王士宁</p>
+  <div class="site-description" itemprop="description">个人学习记录</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://2803125272@qq.com/" title="E-Mail → https:&#x2F;&#x2F;2803125272@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">陕ICP备2023002230号-1 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2023 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王士宁</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">6k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
+

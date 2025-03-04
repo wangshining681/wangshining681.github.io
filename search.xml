@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>使用VsCode插件或SSH命令连接服务器</title>
+    <url>/2023/03/13/17-38-10/</url>
+    <content><![CDATA[<p>​        记录一下使用服务器的过程，包括如何使用shell连接服务器、如何使用vscode的Remote-SSH 插件连接服务器、如何修改用户密码、如何从终端拷贝文件、免密登录等。</p>
+<span id="more"></span>
+<h2 id="SSH登录"><a href="#SSH登录" class="headerlink" title="SSH登录"></a>SSH登录</h2><p>​        ssh登录是最常见的方式，可以直接在shell窗口下用命令连接。使用这种方式需要对shell命令的使用有一定熟练度，熟悉使用Vim等。</p>
+<p>ssh登录的命令：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span> </span><br></pre></td></tr></table></figure>
+<p>ssh免密登录：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh-copy-id -<span class="selector-tag">i</span> ~/.ssh/id_rsa<span class="selector-class">.pub</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
+<p>scp拷贝文件</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">scp -n <span class="selector-attr">[file path]</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
+<p>ssh生成公钥和私钥(最简单的，不添加邮箱、用户名和密码)</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t ras</span></span><br></pre></td></tr></table></figure>
+<h2 id="Remote-SSH"><a href="#Remote-SSH" class="headerlink" title="Remote-SSH"></a>Remote-SSH</h2><p>​        Vscode这个插件我觉得很好用，用这个插件和在本地用Vscode打开一个文件夹一样，非常方便，但是需要配置一下：</p>
+<ol>
+<li>点 ’+‘创建连接</li>
+</ol>
+<p><img data-src="./image-20230313171800058.png" alt="image-20230313171800058"></p>
+<ol>
+<li>输入：<code>[UserName]@[HostName]:[Port]</code></li>
+</ol>
+<p><img data-src="./image-20230313171729967.png" alt="image-20230313171729967"></p>
+<ol>
+<li><p>输入密码</p>
+</li>
+<li><p>打开目录</p>
+<p><img data-src="./image-20230313171950894.png" alt="image-20230313171950894"></p>
+</li>
+<li><p>选择对应目录</p>
+</li>
+</ol>
+<p><img data-src="./image-20230313172028243.png" alt="image-20230313172028243"></p>
+<p>也可以直接修改插件的配置文件</p>
+<p>​    <img data-src="./image-20230313172324063.png" alt="image-20230313172324063">    </p>
+<p>配置文件格式如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Host</span><span class="meta"> [服务器名称(自己取个名字就好)]</span></span><br><span class="line">    <span class="attribute">HostName</span><span class="meta"> [ip]</span></span><br><span class="line">    <span class="attribute">Port</span><span class="meta"> [Port]</span></span><br><span class="line">    <span class="attribute">User</span><span class="meta"> [UserName]</span></span><br></pre></td></tr></table></figure>
+<p>修改完成后重启一下VScode就可以了。</p>
+<h3 id="配置免密登录"><a href="#配置免密登录" class="headerlink" title="配置免密登录"></a>配置免密登录</h3><p>​        SSH配置完免密登录后，VScode登录也可以免密登录。</p>
+<p>​        也可以修改authorized_keys文件，把本地电脑的公钥拷贝到这个文件当中。</p>
+<p><img data-src="./image-20230313172547837.png" alt="image-20230313172547837"></p>
+<p>​        获取公钥的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>配置环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时空图神经网络综述</title>
+    <url>/2023/03/11/16-56-27/</url>
+    <content><![CDATA[<h1 id="时空图神经网络"><a href="#时空图神经网络" class="headerlink" title="时空图神经网络"></a>时空图神经网络</h1><p>​        毕设相关，看一下时空图神经网络的东西。导师让整理一下时空图网络的综述，简单记录一下。</p>
+<span id="more"></span>
+<p>​        时空图神经网络的分类关系图示如下：</p>
+<p><img data-src="./STGNN综合图-color.png" alt="STGNN综合图-color"></p>
+<h1 id="混合模型时空图网络"><a href="#混合模型时空图网络" class="headerlink" title="混合模型时空图网络"></a>混合模型时空图网络</h1><p>混和时空图网络指的是针对时间维度的信息，使用一种新的机器学习算法（RNN、1-D conv、Transformer）来提取特征的时空图网络。代表特征是分别考虑了时间维度和空间维度，有两种机器学习算法分别提取时间和空间的图结构信息。</p>
+<h2 id="空间模块"><a href="#空间模块" class="headerlink" title="空间模块"></a>空间模块<img data-src="./STGNN综合图 Hybrid.png" alt="STGNN综合图 Hybrid"></h2><h3 id="频谱域图神经网络"><a href="#频谱域图神经网络" class="headerlink" title="频谱域图神经网络"></a>频谱域图神经网络</h3><p>最常见的是使用基于频谱域的图卷积的方式来获取空间信息，STGCN就是使用的切比雪夫GCN。</p>
+<p>代表算法：STGCN、StemGNN、GCLSTM、CGTransfo</p>
+<h3 id="空间域图神经网络"><a href="#空间域图神经网络" class="headerlink" title="空间域图神经网络"></a>空间域图神经网络</h3><p>随着空间域图神经网络的发展，很多算法开始使用空间图神经网络对时空图的空间维度信息进行建模，代表性算法：RGNN(使用带有跳跃连接的递归图神经网络）</p>
+<h4 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h4><p>在MTGNN中使用了带有跳跃连接的图卷积网络，同时GCN也被应用于Structural RNN中。</p>
+<h4 id="GAT"><a href="#GAT" class="headerlink" title="GAT"></a>GAT</h4><p>带有attention机制的图神经网络（Graph Attention Network）也可用于对空间维度信息进行建模，代表算法： HST-GNN（使用GAT级联Graph Transformer和一个分层池化机制）、A2GNN（使用GAT和自动图学习器来提高预测性能）。</p>
+<h4 id="GIN"><a href="#GIN" class="headerlink" title="GIN"></a>GIN</h4><p>GIN也被用于时空图网络（模拟脑图，表示大脑中的连接）</p>
+<h4 id="Gated-GNN"><a href="#Gated-GNN" class="headerlink" title="Gated GNN"></a>Gated GNN</h4><p>FG-GAGA中使用带有门控的GNN来对空间信息进行建模</p>
+<h3 id="Graph-Transformer"><a href="#Graph-Transformer" class="headerlink" title="Graph Transformer"></a>Graph Transformer</h3><p>随着Graph Transformer的引入，图神经网络取得了重大进展，同时处理图结构的数据是Transformer这一体系结构的一项重要扩展。Graph Transformer使用自注意机制来更新节点的表示，并已被证明可以在几个基于图的任务上实现了最先进的结果。</p>
+<p>代表算法：TransMOT、Forecaster</p>
+<p>HST-GNN网络中也使用GAT连接了一个Graph Transformer。</p>
+<h2 id="时间模块"><a href="#时间模块" class="headerlink" title="时间模块"></a>时间模块</h2><h3 id="1-D卷积神经网络"><a href="#1-D卷积神经网络" class="headerlink" title="1-D卷积神经网络"></a>1-D卷积神经网络</h3><p>最经典的是在STGCN中，使用1D-CNN来对时间维度信息进行建模；同时MTGNN中也是用1D-CNN作为一个初始层。</p>
+<h3 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h3><p>RNN和他的各种变化（GLU、LSTM）都被广泛应用于混合时空图网络中，使用RNN对时间维度信息进行建模。</p>
+<p>代表算法：Structural RNN、FG-GAGA GNN（使用GRU）、MResGNN(使用了GRU和LSTM)</p>
+<p>HST-GNN中在一个更广泛的encoder-decoder架构中使用了2个带注意力机制的LSTM。</p>
+<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>代表算法：TransMOT、Forecaster、STAGIN、GCTransfo</p>
+<h1 id="单图神经网络"><a href="#单图神经网络" class="headerlink" title="单图神经网络"></a>单图神经网络</h1><p>在时空图网络中，另一种对时间维度建模的方法是将时间信息定义为图神经网络内部的一个结构。</p>
+<p><img data-src="./STGNN综合图.solo.png" alt="STGNN综合图.solo"></p>
+<h3 id="将时间定义为图的边"><a href="#将时间定义为图的边" class="headerlink" title="将时间定义为图的边"></a>将时间定义为图的边</h3><p>在GSTGCN中将时间定义为一条边，将空间邻接矩阵修改为一个时空邻接矩阵。</p>
+<h3 id="将时间作为信号输入"><a href="#将时间作为信号输入" class="headerlink" title="将时间作为信号输入"></a>将时间作为信号输入</h3><p>STGDN中使用时间层次模型将时间作为输入信号输入到GAT中。此外，在CausalGNN中使用门控的因果扩展块来处理时间输入，该块的输入与空间域一个类似的双块结构的输出并行输入到一个动态的GCN中。</p>
+<h3 id="将时间维度建模子图"><a href="#将时间维度建模子图" class="headerlink" title="将时间维度建模子图"></a>将时间维度建模子图</h3><p>U-STGCN中将时间建模为GIN中的一个子图；ASTGCN中使用时间相似度图来解释时间域，形成了一个多图集。</p>
+<h3 id="使用Sandwich结构"><a href="#使用Sandwich结构" class="headerlink" title="使用Sandwich结构"></a>使用Sandwich结构</h3><p>ST-GNN中使用两个1D-CNN来建模时间，在该结构中1D-CNN被作为子模块加在GCN之间。</p>
+<h3 id="时间作为滤波器"><a href="#时间作为滤波器" class="headerlink" title="时间作为滤波器"></a>时间作为滤波器</h3><p>在GCN中引入时间和空间作为多元积分的莱布尼茨滤波器。</p>
+]]></content>
+      <tags>
+        <tag>时空图神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Gitee 搭建人生中第一个博客 （新人特供版）</title>
+    <url>/2023/03/11/10-12-16/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>​        最初有搭建博客的想法是因为朋友建议，加上我自己也确实想开始写一些东西记录自己的学习过程，于是经过两天<del>痛苦</del>快乐的学习和尝试，我终于成功搭建起了自己第一个博客。<br>​        一开始我用的是<strong>GitHub</strong>+<strong>hexo</strong>搭建博客，但是这种方式打开和更新都太慢了，于是我又在同学的建议下用<strong>gitee</strong>+<strong>hexo</strong>的方式搭建博客，果然快了不少，这里放一下我最开始看的<a href="https://www.simon96.online/2018/10/12/hexo-tutorial/">链接</a>。讲的还是很清楚的，我在这里主要写一下我搭建过程中遇到的问题。</p>
+<p><strong>注：本文章只针对像我一样第一次建立博客的人，目的是帮助避免一些不必要的坑，大佬可自动忽略</strong></p>
+<span id="more"></span>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>​        第一步就是下载<strong>Git</strong>和<strong>Node.js</strong>，下载方式里面都有，我就不多说了。这里面最大的坑就是版本问题，一定一定一定要看好版本。我因为版本不对把<strong>Git</strong>重装了三遍，然后发现是<strong>Node.js</strong>的问题，又重装了一遍<strong>Node.js</strong>… 总之，如果你想一遍顺畅的搭好博客，一定要注意一下版本的问题，我下的<strong>Git</strong>是2.27.0-64bit，<strong>Node.js</strong>是12.16.1-x64。</p>
+<p>另一个问题是注意软件的安装路径，<strong>Node.js</strong>在默认路径安装就行，<strong>Git</strong>最好选择一个英文名的文件夹安装，这可能对<strong>Hexo</strong>安装有影响（血泪史）。</p>
+<p>安装好这两个软件后，就可以开始安装<strong>Hexo</strong>了，这是博客搭建的一个重要部分。</p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>​        准备好这两个软件，你就可以开始安装<strong>Hexo</strong>了，你可以直接把<strong>Hexo</strong>安装到<strong>GitBash</strong>打开的初始路径（打开<strong>GitBash</strong>可以直接在桌面右键，我一开始就不知道），就是Git安装的位置，但是我建议你新建一个文件夹，名字不能带汉字，例如myblog、blog、hexo等等，然后在<strong>GitBash</strong>运行以下命令来安装<strong>Hexo</strong>：</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+<p>初始化<strong>Hexo</strong>，在<strong>GitBash</strong>运行以下命令：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">hexo init <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">cd <span class="tag">&lt;<span class="name">文件夹名称</span>&gt;</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>新建完成后，在你安装Hexo的文件夹（叫站点目录）里会出现这些文件和文件夹:</p>
+<p><img data-src="./1.png" alt="1"></p>
+<p>​        这样，<strong>Hexo</strong>就算安装好了，安装<strong>Hexo</strong>的路径一定不能带中文，我因为这个卡了好久qwq。最后启动一下服务器，在<strong>GitBash</strong>下运行</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>​        然后你就可以用浏览器访问网址：<code>http://localhost:4000/</code>来看一下你搭建在本地的博客了，反正我当时看到后极有成就感（毕竟失败了那么多次qwq）</p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>​        这一步主要是如何建库以及把库和你的电脑连起来，上面挂的链接是把博客推送到<strong>Git Hub</strong>上，因为是一般都是国内网，所以很慢很慢，但是据说要是用自定义域名（花小钱钱）就会快不少…所以我选择把博客推送到别的地方，指<strong>Gitee</strong>，真的比<strong>Git Hub</strong>快了一万倍，步骤如下：</p>
+<ol>
+<li>先在<a href="https://gitee.com/">Gitee</a>上注册一个账号</li>
+<li>然后建立一个仓库，仓库名称要跟下图中的@的那个名字相同，划重点！！一定要一样，不然要改什么root之类的，很麻烦。我一开始因为不知道设置成不同的名字一直推送失败，自闭了很久…</li>
+<li>添加SSH key</li>
+</ol>
+<ul>
+<li><p>在<strong>Git Bash</strong>上运行以下命令创建一个SSH key，回车三下就行：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t rsa</span> </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>Git Bash</strong>上运行以下命令，可以直接获得SSH key，不用去找文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把得到的公钥添加到NEW SSH key就行（点右上方头像，在设置里）</p>
+</li>
+<li><p>可以测试以下是否添加成功，在<strong>Git Bash</strong>上添加如下命令，如果返回“You’ve successfully authenticated”就表示添加成功了：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@githee</span>.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>修改<code>_config.yml</code>(在站点目录下)。</li>
+</ol>
+<ul>
+<li><p>建议用vim或者vsnode修改</p>
+</li>
+<li><p>文件末尾修改为：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:<span class="params">&lt;Gitee账号名称&gt;</span>/<span class="params">&lt;Gitee账号名称&gt;</span>.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure>
+<p>注意：这里的账号地址指的是上面说的@里的地址</p>
+</li>
+</ul>
+<ol>
+<li>推送到<strong>Gitee</strong>。在<strong>Git Bash</strong>输入如下命令，如果返回<code>INFO Deploy done: git</code></li>
+</ol>
+<p>即成功推送：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">hexo <span class="selector-tag">g</span></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>​        登录<strong>Gitee</strong>，进入你建立的库，进入<strong>Gitee Pages</strong>，部署一下（不用改，默认的选项就可以），会生成一个网址。到这里，你的博客已经搭建在<strong>Gitee Pages</strong>上了，域名就是部署后生成的网址。</p>
+<p><img data-src="./3.png" alt="3"></p>
+<p><strong>然后你就成功拥有了一个博客，完结撒花~~</strong></p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>腾讯云服务器+Hexo 搭建博客（二）</title>
+    <url>/2023/03/11/14-27-31/</url>
+    <content><![CDATA[<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="本地环境"><a href="#本地环境" class="headerlink" title="本地环境"></a>本地环境</h2><p>​        本地环境在第一篇Hexo+Gitee中有介绍，基本一摸一样的，还是安装git、Node.js和Hexo。</p>
+<blockquote>
+<p>安装完Node.js后就可以使用shell指令安装Hexo了</p>
+</blockquote>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>        
+<p>安装完Hexo后，需要初始化一个Hexo文件夹，后面博客本地主要环境都在这个文件夹中。</p>
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line"><span class="built_in">md</span> blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>​        npm下载很多时候需要管理员权限，当看到出现类似Permission Denied之类的报错时候，就考虑一下是不是没有权限。可以关掉终端，以管理员身份重新运行一下。</p>
+<p>​        初始化后，需要安装插件：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-deployer-git --save</span><br><span class="line">npm <span class="keyword">install</span> hexo-server</span><br></pre></td></tr></table></figure>
+<p>​        本地环境配置好后，可以在本地部署一下博客预览一下。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hexo clean</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br><span class="line"><span class="attribute">hexo s</span></span><br></pre></td></tr></table></figure>
+<h3 id="Hexo常用指令"><a href="#Hexo常用指令" class="headerlink" title="Hexo常用指令"></a>Hexo常用指令</h3><figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">hexo clean 				<span class="meta">#清空缓冲区</span></span><br><span class="line">hexo d 					<span class="meta">#提交到本地</span></span><br><span class="line">hexo s 					<span class="meta">#在本地部署</span></span><br><span class="line">hexo g 					<span class="meta">#提交并部署到服务器</span></span><br><span class="line">hexo new <span class="string">&quot;blog-name&quot;</span>	<span class="meta">#创建一篇名为<span class="string">&quot;blog-name&quot;</span>的博客</span></span><br><span class="line">hexo d -g 				<span class="meta">#提交后直接部署到服务器（谨慎使用）</span></span><br></pre></td></tr></table></figure>
+<h3 id="生成ssh"><a href="#生成ssh" class="headerlink" title="生成ssh"></a>生成ssh</h3><p>打开git bash，运行命令：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t rsa</span> </span><br></pre></td></tr></table></figure>
+<p>获得公钥</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<h2 id="服务器环境"><a href="#服务器环境" class="headerlink" title="服务器环境"></a>服务器环境</h2><h3 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h3><p>重置密码</p>
+<p><img data-src="./image-20230311144703313.png" alt="image-20230311144703313"></p>
+<p>在服务器防火墙中添加HTTP规则和FTP规则</p>
+<p><img data-src="./image-20230311144721396.png" alt="image-20230311144721396"></p>
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><ol>
+<li>安装nginx依赖环境</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">yum <span class="keyword">install</span> gcc-c++</span><br><span class="line">yum <span class="keyword">install</span> -y pcre pcre-devel</span><br><span class="line">yum <span class="keyword">install</span> -y zlib zlib-devel</span><br><span class="line">yum <span class="keyword">install</span> -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
+<ol>
+<li>下载nginx安装包</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">wget</span> -c https://nginx.org/download/nginx-<span class="number">1</span>.<span class="number">18</span>.<span class="number">0</span>.tar.gz</span><br></pre></td></tr></table></figure>
+<p>​    下载完成后，解压到/usr/local目录下，安装nginx</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">tar -zxvf nginx-1.18.0.tar.gz -C <span class="string">/usr/local</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/nginx-1.18.0/</span></span><br><span class="line"><span class="string">./configure</span> <span class="params">--prefix=/usr/local/soft/nginx</span> <span class="params">--with</span> http_stub_status_module <span class="params">--with-http_ssl_module</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>–prefix 指定安装路径</li>
+<li>–with-http_stub_status_module 允许查看nginx状态的模块</li>
+<li>–with-http_ssl_module 支持https的模块</li>
+</ul>
+<p>编译安装nginx</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="built_in">make</span></span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置外部端口访问</li>
+</ol>
+<p>进入nginx安装目录，开放80端口供外部访问。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">cd /usr/local/soft/nginx</span><br><span class="line">/sbin/iptables -<span class="selector-tag">I</span> <span class="selector-tag">INPUT</span> -<span class="selector-tag">p</span> tcp <span class="attr">--dport</span> <span class="number">80</span> -j ACCEPT</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动nginx</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/soft/nginx</span><br><span class="line"><span class="built_in">cd</span> sbin</span><br><span class="line">./nginx</span><br></pre></td></tr></table></figure>
+<p>​    没有消息代表启动成功，此时输入公网IP就可以进入nginx的欢迎界面了。</p>
+<h4 id="nginx指令"><a href="#nginx指令" class="headerlink" title="nginx指令"></a>nginx指令</h4><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/lcoal/soft/nginx</span></span><br><span class="line"><span class="comment"># 停止nginx</span></span><br><span class="line"><span class="string">./nginx</span> -s stop</span><br><span class="line"><span class="comment"># 启动nginx</span></span><br><span class="line"><span class="string">./nginx</span></span><br><span class="line"><span class="comment"># 重启nginx服务</span></span><br><span class="line"><span class="string">./nginx</span> -s <span class="keyword">reload</span></span><br></pre></td></tr></table></figure>
+<h3 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h3><ol>
+<li>安装git</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">yum <span class="keyword">install</span> git</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建git用户</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">adduser git</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加git账户权限</li>
+</ol>
+<p>注意，以下步骤在root用户权限下完成</p>
+<p>修改sudoers文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 740 /etc/sudoers</span><br><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+<p>在下面这个的地方添加git的权限</p>
+<p><img data-src="./image-20230311150719115.png" alt="image-20230311150719115"></p>
+<p>然后改回sudoers的权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 400 /etc/sudoers</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置git账户密码</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> passwd git</span><br></pre></td></tr></table></figure>
+<ol>
+<li>切换至git账户，创建~/.ssh/authorized_keys</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">su git</span><br><span class="line"><span class="built_in">mkdir</span> ~/.ssh</span><br><span class="line">vim ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p>将本地环境下的公钥拷贝到服务器的authorized_keys文件中，退出保存。</p>
+<p>然后赋予authorized_keys权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 /home/git/.ssh/authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 700 /home/git/.ssh</span><br></pre></td></tr></table></figure>
+<p>在本地Git终端下测试能否登录git账户</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">ssh -v <span class="symbol">git@</span>公网ip</span><br></pre></td></tr></table></figure>
+<h3 id="创建仓库目录及相关配置"><a href="#创建仓库目录及相关配置" class="headerlink" title="创建仓库目录及相关配置"></a>创建仓库目录及相关配置</h3><ol>
+<li>在root账户下创建目录</li>
+</ol>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">su</span></span><br><span class="line"><span class="keyword">mkdir</span> /<span class="keyword">var</span>/repo</span><br><span class="line"><span class="keyword">mkdir</span> /<span class="keyword">var</span>/hexo</span><br></pre></td></tr></table></figure>
+<ol>
+<li>赋予权限</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R git:git /var/repo</span><br><span class="line"><span class="built_in">chmod</span> -R 755 /var/repo</span><br><span class="line"><span class="built_in">chown</span> -R git:git /var/hexo</span><br><span class="line"><span class="built_in">chmod</span> -R 755 /var/hexo</span><br></pre></td></tr></table></figure>
+<ol>
+<li>用git初始化仓库，</li>
+</ol>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/var/repo</span></span><br><span class="line">git init <span class="params">--bare</span> hexo.git</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>创建一个新的git钩子，用于自动部署</p>
+<p>在/var/repo/hexo.git下，有一个自动生成的hooks文件夹，我们需要新建一个钩子文件post-receive</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/var/</span>repo<span class="regexp">/hexo.git/</span>hooks/post-receive</span><br></pre></td></tr></table></figure>
+<p>加入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">git --work-tree=/var/hexo --git-dir=/var/repo/hexo.git checkout -f</span><br></pre></td></tr></table></figure>
+<p>修改权限：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">chown -R git:git <span class="regexp">/var/</span>repo<span class="regexp">/hexo.git/</span>hooks/post-receive</span><br><span class="line">chmod +x <span class="regexp">/var/</span>repo<span class="regexp">/hexo.git/</span>hooks/post-receive</span><br></pre></td></tr></table></figure>
+<h3 id="修改nginx配置"><a href="#修改nginx配置" class="headerlink" title="修改nginx配置"></a>修改nginx配置</h3><p>进入nginx配置文件目录:</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/soft/nginx</span><br><span class="line"><span class="keyword">cd</span> <span class="keyword">conf</span></span><br><span class="line">vim nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改配置文件：</p>
+<p><img data-src="./image-20230311152202806.png" alt="image-20230311152202806"></p>
+<p><img data-src="./image-20230311152235875.png" alt="image-20230311152235875"></p>
+<p>主要修改user、server_name和location的根目录（root）</p>
+<p>serer_name为你自己的域名，如果没有可以先填公网ip。</p>
+</li>
+</ol>
+<p>​        修改后，重启nginx。</p>
+<pre><code>cd /usr/local/soft/nginx/sbin
+./nginx -s reload
+</code></pre><h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><p>环境配置完成后，在本地hexo目录里修改站点配置文件_config.yml，找到deploy</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line">  <span class="symbol">type:</span> git</span><br><span class="line">  <span class="symbol">repo:</span> git@你的域名<span class="symbol">:/var/repo/hexo</span>.git</span><br><span class="line">  <span class="symbol">branch:</span> master</span><br></pre></td></tr></table></figure>
+<p>在本地电脑的hexo目录右键打开git bash</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br><span class="line">hexo <span class="selector-tag">g</span></span><br></pre></td></tr></table></figure>
+<p>这时如果出现权限问题导致部署失败，在服务器端运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R git:git /var/repo/</span><br><span class="line"><span class="built_in">chown</span> -R git:git /var/hexo/</span><br></pre></td></tr></table></figure>
+<p>部署成功后，就可以通过公网或者域名访问博客了。</p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>腾讯云服务器+Hexo 搭建博客（一）</title>
+    <url>/2023/03/11/11-25-44/</url>
+    <content><![CDATA[<h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>​        搭建自己的博客网站是我大一时候的想法，大一下在朋友的帮助下搭了一个部署在Gitee上的博客。当时非常开心，兴奋的写了好几篇博客，然后分享给朋友用来装逼。但是过了没几个月，热情过去之后就什么就把这个事情忘记了。</p>
+<p>​        其实花了这么长时间搭建博客，应该是要记录一些东西的，记录生活也好，记录自己学习到的东西也好。但是之前我只是把这个当作一个炫耀的工具，忘记了写博客最本质的东西。前几天突然在一个技术交流群里发现了帮助我搭博客的朋友发的文章，然后发现其实他一直在坚持更新博客，一下子感触颇多。感觉也想坚持着做一些事情，也给自己的一些经历做一些记录。</p>
+<span id="more"></span>
+<p>​        成为准研究生后，没有那么大的学业压力，每天枯燥的看论文实在受不了了，所以在工作站上重新搭了个博客，一边工作一边记录一下。这次是用腾讯云的轻量应用服务器来搭的博客，购买了一个最便宜的域名来搭的博客，比部署在Gitee上麻烦了很多，也增加了很多问题，但是用自己的域名搭建博客，感觉还是很不一样的哈哈。</p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>​        服务器我买的是腾讯云轻量应用服务器，几十块钱一年，比较便宜。本来是打算用这个整一个公众号的，没整出来，为了避免浪费就用来搭博客了。</p>
+<p>​        使用服务器很多教程会推荐使用各种各样的工具，但我建议还是用他网页自带的就好了，远程登陆挺好用的。如果要使用root权限需要使用密码登录，重置一下密码就可以了。</p>
+<p><img data-src="./image-20230311114320192.png" alt="image-20230311114320192"></p>
+<p><img data-src="./image-20230311114428850.png" alt="image-20230311114428850"></p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>​        这也是我第一次买域名，第一次购买域名的话会有首年优惠，我买了一个“xxxx.cn”的域名，才29一年，比我想的便宜好多。当时只是第一年这样，第二年就39了，感觉也不算贵。</p>
+<p><img data-src="./image-20230311114806918.png" alt="image-20230311114806918"></p>
+<p>​        购买完域名后，不要急着绑定服务器，可以先备案再绑定，因为备案的时间周期很长，我觉得完全可以备案完再绑定。</p>
+<p>​        当时我心急直接绑定了，结果网站因为没备案一直进不去，最后只能等备案完成后才能继续。</p>
+<h2 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h2><p>​        域名买回来后，一般都是不能直接使用的，需要走备案流程。这个流程相当繁琐，需要填写各种各样的信息，准备身份证正反面照片、手持身份证照片balabala</p>
+<p>​        有几个需要注意的点，一是通信地址需要注意写具体，我因为在学校直接填了学校，但是它需要你填到具体哪个宿舍或者别的地方，否则会被退回修改；第二个是网站的名字不能带姓名、博客、地点等关键字，长得像名字的假名也不行，比如“王十宇”就不行，“十宇”就可以；第三点是人脸视频核验，因为当时在手机上就可以核验，我就随便找了个地方拍的，但他的背景必须是白色背景，不是的话会需要重新拍。</p>
+<p>​        <img data-src="./image-20230311141959392.png" alt="image-20230311141959392"></p>
+<p>​        我这里备案速度还是挺快的，但是实际上可能最长需要20天，所以还是建议备案完成前先不要绑定域名。</p>
+<p>​        腾讯云初审后，会给你短信发一个链接，要在24小时内核验完成，需要注意接收短信。</p>
+<p>​        管局备案完成后，会给你发一个邮箱告诉你备案完成了，并且告诉你一个类似”陕ICP备202300xxxx号-1“的网站备案号和“陕ICP备202300xxxx号”的主题备案好，然后你还需要在公安系统进行备案。</p>
+<p>​        公安系统备案的时候，就需要填写你的备案号和主题备案号了，要注意这个流程需要在管局备案完成后的三十天内完成。</p>
+<p>​    </p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>腾讯云服务器+Hexo 搭建博客（三）</title>
+    <url>/2023/03/11/15-33-07/</url>
+    <content><![CDATA[<h1 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h1><h2 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h2><h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>在腾讯云内申请一个免费的SSL证书。</p>
+<span id="more"></span>
+<p><img data-src="./image-20230311153628597.png" alt="image-20230311153628597"></p>
+<p>下载证书（Nginx）：</p>
+<p><img data-src="./image-20230311153709277.png" alt="image-20230311153709277"></p>
+<p>解压后得到：</p>
+<p><img data-src="./image-20230311153858130.png" alt="image-20230311153858130"></p>
+<p>使用scp命令将证书文件拷贝到服务器上：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> 证书文件夹</span><br><span class="line">scp * git@公网ip:/usr/<span class="keyword">local</span>/soft/nginx/<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在服务器端修改配置文件</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/soft/nginx</span><br><span class="line">vim <span class="keyword">conf</span>/nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改内容如下：</p>
+<p><img data-src="./image-20230311154255884.png" alt="image-20230311154255884"></p>
+<p>在文件最后修改server_name为你的公网ip或域名、ssl_certificate为*.pem文件存放的位置、ssl_certificate_key为*.key文件存放的位置。</p>
+<p>修改location为hexo目录所在位置。</p>
+<p>修改原有端口80的监听，加一行配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">return</span> 301 https://www.xxxxxx.cn<span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="./image-20230311154842956.png" alt="image-20230311154842956"></p>
+<p>重启nginx:</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/soft/nginx/sbin</span></span><br><span class="line"><span class="string">./nginx</span> -s <span class="keyword">reload</span></span><br></pre></td></tr></table></figure>
+<h2 id="Hexo主题配置"><a href="#Hexo主题配置" class="headerlink" title="Hexo主题配置"></a>Hexo主题配置</h2><p>我是用的是next主题，配置后效果如下，如果不喜欢的话可以搜索其他博客的主题配置。</p>
+<p><img data-src="./image-20230311154953981.png" alt="image-20230311154953981"></p>
+<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><p>1.前往<a href="https://github.com/theme-next/hexo-theme-next">Next主题制作团队的主页</a>下载Zip压缩包</p>
+<p><img data-src="./image-20230311155244994.png" alt="image-20230311155244994"></p>
+<ol>
+<li>下载后，解压到博客目录下的themes文件夹内</li>
+</ol>
+<p><img data-src="./image-20230311155419423.png" alt="image-20230311155419423"></p>
+<p>重命名为next:</p>
+<p><img data-src="./image-20230311155356824.png" alt="image-20230311155356824"></p>
+<ol>
+<li><p>修改站点配置文件_config.yml</p>
+<p>基础配置</p>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attribute">title</span>:  					<span class="comment">#博客标题</span></span><br><span class="line"><span class="attribute">subtitle</span>: 					<span class="comment">#副标题</span></span><br><span class="line"><span class="attribute">description</span>:				<span class="comment">#网站描述 </span></span><br><span class="line"><span class="attribute">keywords</span>: 					<span class="comment">#网站关键词</span></span><br><span class="line"><span class="attribute">author</span>: 王士宁	  			  <span class="comment">#名字</span></span><br><span class="line"><span class="attribute">language</span>: zh-CN 			<span class="comment">#网站参考语言</span></span><br><span class="line"><span class="attribute">timezone</span>: &#x27;Asia/Shanghai&#x27; 	<span class="comment"># 时区</span></span><br></pre></td></tr></table></figure>
+<p>修改主题：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:<span class="comment">//hexo.io/plugins/</span></span><br><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改主题配置文件themes\next\_config.yml</p>
+<p>(1) 主题风格</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta"># scheme: Mist</span></span><br><span class="line"><span class="meta"># scheme: Pisces</span></span><br><span class="line"><span class="meta"># scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>(2) 设置导航栏菜单</p>
+<p>可自行增减功能，取消注释即可启用。</p>
+<p><img data-src="./image-20230311160301923.png" alt="image-20230311160301923"></p>
+</li>
+</ol>
+<p>（3）侧边栏设置</p>
+<p>侧边栏我设置的位置是左侧，同时设置永远显示，这里也可以根据注释修改</p>
+<p><img data-src="./image-20230311160412761.png" alt="image-20230311160412761"></p>
+<p>（4） 侧边栏头像</p>
+<p>​    url链接为图片的相对路径，在next/source目录下。</p>
+<p><img data-src="./image-20230311160550828.png" alt="image-20230311160550828"></p>
+<p>（5）社交链接</p>
+<p>这里是侧边栏链接，可以指向某个链接或某个网址。</p>
+<p>这里我只加了一个email，因为其他账号都没有发啥东西，等开始更新再添加。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">social:</span></span><br><span class="line">  <span class="meta">#GitHub: https:<span class="comment">//github.com/yourname || fab fa-github</span></span></span><br><span class="line">  E-Mail: <span class="number">2803125272</span>@qq.com || fa fa-envelope</span><br><span class="line">  <span class="meta">#Weibo: https:<span class="comment">//weibo.com/yourname || fab fa-weibo</span></span></span><br><span class="line">  <span class="meta">#Google: https:<span class="comment">//plus.google.com/yourname || fab fa-google</span></span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/yourname || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#FB Page: https:<span class="comment">//www.facebook.com/yourname || fab fa-facebook</span></span></span><br><span class="line">  <span class="meta">#StackOverflow: https:<span class="comment">//stackoverflow.com/yourname || fab fa-stack-overflow</span></span></span><br><span class="line">  <span class="meta">#YouTube: https:<span class="comment">//youtube.com/yourname || fab fa-youtube</span></span></span><br><span class="line">  <span class="meta">#Instagram: https:<span class="comment">//instagram.com/yourname || fab fa-instagram</span></span></span><br><span class="line">  <span class="meta">#Skype: skype:yourname?call|chat || fab fa-skype</span></span><br><span class="line"><span class="symbol">  </span></span><br><span class="line"><span class="symbol">social_icons:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  icons_only:</span> false</span><br><span class="line"><span class="symbol">  transition:</span> false</span><br><span class="line"></span><br><span class="line"><span class="meta"># Blog rolls</span></span><br><span class="line"><span class="symbol">links_settings:</span></span><br><span class="line"><span class="symbol">  icon:</span> fa fa-link</span><br><span class="line"><span class="symbol">  title:</span> Links</span><br><span class="line">  <span class="meta"># Available values: block | inline</span></span><br><span class="line"><span class="symbol">  layout:</span> block</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">links:</span></span><br><span class="line">  <span class="meta">#Title: http:<span class="comment">//yoursite.com</span></span></span><br></pre></td></tr></table></figure>
+<p>（6）打赏功能</p>
+<p>效果如下</p>
+<p><img data-src="./image-20230311161459148.png" alt="image-20230311161459148"></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Reward (Donate)</span></span><br><span class="line"><span class="comment"># Front-matter variable (unsupport animation).</span></span><br><span class="line"><span class="params">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="params">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="params">comment:</span> Q：如果你觉得博主写的不错，可以打赏支持一下</span><br><span class="line">  <span class="comment">#comment: Donate comment here.</span></span><br><span class="line"></span><br><span class="line"><span class="params">reward:</span></span><br><span class="line">  <span class="params">wechatpay:</span> <span class="symbol">/images/wechatpay.jpg</span></span><br><span class="line">  <span class="params">alipay:</span> <span class="symbol">/images/alipay.jpg</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
+<p>（7）关注其他发布渠道</p>
+<p><img data-src="./image-20230311161601353.png" alt="image-20230311161601353"></p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="meta"># Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line"><span class="symbol">follow_me:</span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/username || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#Telegram: https:<span class="comment">//t.me/channel_name || fab fa-telegram</span></span></span><br><span class="line"><span class="symbol">  WeChat:</span> <span class="keyword">/images/</span>wechat_channel.jpg || fab fa-weixin</span><br><span class="line">  <span class="meta">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
+<p>(8) 返回顶部按钮并显示阅读进度</p>
+<p><img data-src="./image-20230311161710143.png" alt="image-20230311161710143"></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">back2top:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Back to top in sidebar.</span></span><br><span class="line">  <span class="params">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Scroll percent label in b2t button.</span></span><br><span class="line">  <span class="params">scrollpercent:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Reading progress bar</span></span><br><span class="line"><span class="params">reading_progress:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Available values: top | bottom</span></span><br><span class="line">  <span class="params">position:</span> left</span><br><span class="line">  <span class="params">color:</span> <span class="string">&quot;#37c6c0&quot;</span></span><br><span class="line">  <span class="params">height:</span> <span class="number">5</span>px</span><br></pre></td></tr></table></figure>
+<h3 id="没用但是好玩的配置"><a href="#没用但是好玩的配置" class="headerlink" title="没用但是好玩的配置"></a>没用但是好玩的配置</h3><h4 id="2D人物"><a href="#2D人物" class="headerlink" title="2D人物"></a>2D人物</h4><p>添加一个在左下角看着你的小人，没啥用但是很好玩。其实还有鼠标点击有爱心和好玩的丝线等奇奇怪怪的功能还没来得及配置，虽然没啥用，但是很有意思。</p>
+<p><img data-src="./image-20230311161920116.png" alt="image-20230311161920116"></p>
+<ol>
+<li>下载插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save hexo-helper-live2d</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加配置文件</li>
+</ol>
+<p>​    修改站点目录下的_config.yml：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">live2d:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span>  <span class="comment"># 是否启动</span></span><br><span class="line">  <span class="params">scriptFrom:</span> local <span class="comment"># 默认</span></span><br><span class="line">  <span class="params">pluginRootPath:</span> live2dw<span class="symbol">/</span>  <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="params">pluginJsPath:</span> lib<span class="symbol">/</span>  <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">pluginModelPath:</span> assets<span class="symbol">/</span>  <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">tagMode:</span> <span class="literal">false</span>  <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="params">debug:</span> <span class="literal">false</span>  <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="params">model:</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-wanko  ## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-hibiki  ## 模型文件</span></span><br><span class="line">    <span class="params">use:</span> live2d-widget-model-koharu  <span class="comment">## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-shizuku  ## 模型文件</span></span><br><span class="line">  <span class="params">display:</span></span><br><span class="line">    <span class="params">position:</span> right <span class="comment"># 定位方向 left right top bottom</span></span><br><span class="line">    <span class="params">width:</span> <span class="number">150</span>  <span class="comment"># 小人宽度</span></span><br><span class="line">    <span class="params">height:</span> <span class="number">300</span> <span class="comment">#  小人高度</span></span><br><span class="line">    <span class="params">hOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 向 偏移</span></span><br><span class="line">    <span class="params">vOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 像 偏移</span></span><br><span class="line">  <span class="params">mobile:</span></span><br><span class="line">    <span class="params">show:</span> <span class="literal">true</span>  <span class="comment"># 手机端是否显示</span></span><br><span class="line">  <span class="params">react:</span></span><br><span class="line">    <span class="params">opacity:</span> <span class="number">0.7</span>  <span class="comment"># 模型透明度</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装你喜欢的模型</li>
+</ol>
+<p>模型名称如下：</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&gt;live2d-widget-model-chitose</span><br><span class="line">&gt;live2d-widget-model-epsilon2_1</span><br><span class="line">&gt;live2d-widget-model-gf</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">01</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">02</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haruto</span><br><span class="line">&gt;live2d-widget-model-hibiki</span><br><span class="line">&gt;live2d-widget-model-hijiki</span><br><span class="line">&gt;live2d-widget-model-izumi</span><br><span class="line">&gt;live2d-widget-model-koharu</span><br><span class="line">&gt;live2d-widget-model-miku</span><br><span class="line">&gt;live2d-widget-model-ni-j</span><br><span class="line">&gt;live2d-widget-model-nico</span><br><span class="line">&gt;live2d-widget-model-nietzsche</span><br><span class="line">&gt;live2d-widget-model-nipsilon</span><br><span class="line">&gt;live2d-widget-model-nito</span><br><span class="line">&gt;live2d-widget-model-shizuku</span><br><span class="line">&gt;live2d-widget-model-tororo</span><br><span class="line">&gt;live2d-widget-model-tsumiki</span><br><span class="line">&gt;live2d-widget-model-unitychan</span><br><span class="line">&gt;live2d-widget-model-wanko</span><br><span class="line">&gt;live2d-widget-model-z16</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>可直接通过命令下载，比如要下载wanko模型就用：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save live2d-widget-model-wanko</span></span><br></pre></td></tr></table></figure>
+<p>因为是在站点目录下修改的配置文件，所以需要修改路径：</p>
+<p>在博客目录下创建一个文件夹live2d_models，在node_modules中找到下载好的2d人物模型，复制到live2d_models文件夹下。</p>
+<p>修改配置文件：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">model:</span><br><span class="line">    # use: live2d-widget-model-wanko  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-hibiki  ## 模型文件</span><br><span class="line">    use: live2d-widget-model-koharu  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-shizuku  ## 模型文件</span><br></pre></td></tr></table></figure>
+<p>use后修改为模型名称即可完成修改。</p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2025/03/04/14-21-28/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+</search>
