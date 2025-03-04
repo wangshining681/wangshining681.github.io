@@ -62,11 +62,6 @@
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>/2025/03/04/14-21-28/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>腾讯云服务器+Hexo 搭建博客（一）</title>
     <url>/2023/03/11/11-25-44/</url>
     <content><![CDATA[<h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>​        搭建自己的博客网站是我大一时候的想法，大一下在朋友的帮助下搭了一个部署在Gitee上的博客。当时非常开心，兴奋的写了好几篇博客，然后分享给朋友用来装逼。但是过了没几个月，热情过去之后就什么就把这个事情忘记了。</p>
@@ -89,6 +84,104 @@
 <p>​        管局备案完成后，会给你发一个邮箱告诉你备案完成了，并且告诉你一个类似”陕ICP备202300xxxx号-1“的网站备案号和“陕ICP备202300xxxx号”的主题备案好，然后你还需要在公安系统进行备案。</p>
 <p>​        公安系统备案的时候，就需要填写你的备案号和主题备案号了，要注意这个流程需要在管局备案完成后的三十天内完成。</p>
 <p>​    </p>
+]]></content>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>腾讯云服务器+Hexo 搭建博客（三）</title>
+    <url>/2023/03/11/15-33-07/</url>
+    <content><![CDATA[<h1 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h1><h2 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h2><h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>在腾讯云内申请一个免费的SSL证书。</p>
+<span id="more"></span>
+<p><img data-src="./image-20230311153628597.png" alt="image-20230311153628597"></p>
+<p>下载证书（Nginx）：</p>
+<p><img data-src="./image-20230311153709277.png" alt="image-20230311153709277"></p>
+<p>解压后得到：</p>
+<p><img data-src="./image-20230311153858130.png" alt="image-20230311153858130"></p>
+<p>使用scp命令将证书文件拷贝到服务器上：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> 证书文件夹</span><br><span class="line">scp * git@公网ip:/usr/<span class="keyword">local</span>/soft/nginx/<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在服务器端修改配置文件</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/soft/nginx</span><br><span class="line">vim <span class="keyword">conf</span>/nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改内容如下：</p>
+<p><img data-src="./image-20230311154255884.png" alt="image-20230311154255884"></p>
+<p>在文件最后修改server_name为你的公网ip或域名、ssl_certificate为*.pem文件存放的位置、ssl_certificate_key为*.key文件存放的位置。</p>
+<p>修改location为hexo目录所在位置。</p>
+<p>修改原有端口80的监听，加一行配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">return</span> 301 https://www.xxxxxx.cn<span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="./image-20230311154842956.png" alt="image-20230311154842956"></p>
+<p>重启nginx:</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/soft/nginx/sbin</span></span><br><span class="line"><span class="string">./nginx</span> -s <span class="keyword">reload</span></span><br></pre></td></tr></table></figure>
+<h2 id="Hexo主题配置"><a href="#Hexo主题配置" class="headerlink" title="Hexo主题配置"></a>Hexo主题配置</h2><p>我是用的是next主题，配置后效果如下，如果不喜欢的话可以搜索其他博客的主题配置。</p>
+<p><img data-src="./image-20230311154953981.png" alt="image-20230311154953981"></p>
+<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><p>1.前往<a href="https://github.com/theme-next/hexo-theme-next">Next主题制作团队的主页</a>下载Zip压缩包</p>
+<p><img data-src="./image-20230311155244994.png" alt="image-20230311155244994"></p>
+<ol>
+<li>下载后，解压到博客目录下的themes文件夹内</li>
+</ol>
+<p><img data-src="./image-20230311155419423.png" alt="image-20230311155419423"></p>
+<p>重命名为next:</p>
+<p><img data-src="./image-20230311155356824.png" alt="image-20230311155356824"></p>
+<ol>
+<li><p>修改站点配置文件_config.yml</p>
+<p>基础配置</p>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attribute">title</span>:  					<span class="comment">#博客标题</span></span><br><span class="line"><span class="attribute">subtitle</span>: 					<span class="comment">#副标题</span></span><br><span class="line"><span class="attribute">description</span>:				<span class="comment">#网站描述 </span></span><br><span class="line"><span class="attribute">keywords</span>: 					<span class="comment">#网站关键词</span></span><br><span class="line"><span class="attribute">author</span>: 王士宁	  			  <span class="comment">#名字</span></span><br><span class="line"><span class="attribute">language</span>: zh-CN 			<span class="comment">#网站参考语言</span></span><br><span class="line"><span class="attribute">timezone</span>: &#x27;Asia/Shanghai&#x27; 	<span class="comment"># 时区</span></span><br></pre></td></tr></table></figure>
+<p>修改主题：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:<span class="comment">//hexo.io/plugins/</span></span><br><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改主题配置文件themes\next\_config.yml</p>
+<p>(1) 主题风格</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta"># scheme: Mist</span></span><br><span class="line"><span class="meta"># scheme: Pisces</span></span><br><span class="line"><span class="meta"># scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>(2) 设置导航栏菜单</p>
+<p>可自行增减功能，取消注释即可启用。</p>
+<p><img data-src="./image-20230311160301923.png" alt="image-20230311160301923"></p>
+</li>
+</ol>
+<p>（3）侧边栏设置</p>
+<p>侧边栏我设置的位置是左侧，同时设置永远显示，这里也可以根据注释修改</p>
+<p><img data-src="./image-20230311160412761.png" alt="image-20230311160412761"></p>
+<p>（4） 侧边栏头像</p>
+<p>​    url链接为图片的相对路径，在next/source目录下。</p>
+<p><img data-src="./image-20230311160550828.png" alt="image-20230311160550828"></p>
+<p>（5）社交链接</p>
+<p>这里是侧边栏链接，可以指向某个链接或某个网址。</p>
+<p>这里我只加了一个email，因为其他账号都没有发啥东西，等开始更新再添加。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">social:</span></span><br><span class="line">  <span class="meta">#GitHub: https:<span class="comment">//github.com/yourname || fab fa-github</span></span></span><br><span class="line">  E-Mail: <span class="number">2803125272</span>@qq.com || fa fa-envelope</span><br><span class="line">  <span class="meta">#Weibo: https:<span class="comment">//weibo.com/yourname || fab fa-weibo</span></span></span><br><span class="line">  <span class="meta">#Google: https:<span class="comment">//plus.google.com/yourname || fab fa-google</span></span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/yourname || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#FB Page: https:<span class="comment">//www.facebook.com/yourname || fab fa-facebook</span></span></span><br><span class="line">  <span class="meta">#StackOverflow: https:<span class="comment">//stackoverflow.com/yourname || fab fa-stack-overflow</span></span></span><br><span class="line">  <span class="meta">#YouTube: https:<span class="comment">//youtube.com/yourname || fab fa-youtube</span></span></span><br><span class="line">  <span class="meta">#Instagram: https:<span class="comment">//instagram.com/yourname || fab fa-instagram</span></span></span><br><span class="line">  <span class="meta">#Skype: skype:yourname?call|chat || fab fa-skype</span></span><br><span class="line"><span class="symbol">  </span></span><br><span class="line"><span class="symbol">social_icons:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  icons_only:</span> false</span><br><span class="line"><span class="symbol">  transition:</span> false</span><br><span class="line"></span><br><span class="line"><span class="meta"># Blog rolls</span></span><br><span class="line"><span class="symbol">links_settings:</span></span><br><span class="line"><span class="symbol">  icon:</span> fa fa-link</span><br><span class="line"><span class="symbol">  title:</span> Links</span><br><span class="line">  <span class="meta"># Available values: block | inline</span></span><br><span class="line"><span class="symbol">  layout:</span> block</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">links:</span></span><br><span class="line">  <span class="meta">#Title: http:<span class="comment">//yoursite.com</span></span></span><br></pre></td></tr></table></figure>
+<p>（6）打赏功能</p>
+<p>效果如下</p>
+<p><img data-src="./image-20230311161459148.png" alt="image-20230311161459148"></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Reward (Donate)</span></span><br><span class="line"><span class="comment"># Front-matter variable (unsupport animation).</span></span><br><span class="line"><span class="params">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="params">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="params">comment:</span> Q：如果你觉得博主写的不错，可以打赏支持一下</span><br><span class="line">  <span class="comment">#comment: Donate comment here.</span></span><br><span class="line"></span><br><span class="line"><span class="params">reward:</span></span><br><span class="line">  <span class="params">wechatpay:</span> <span class="symbol">/images/wechatpay.jpg</span></span><br><span class="line">  <span class="params">alipay:</span> <span class="symbol">/images/alipay.jpg</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
+<p>（7）关注其他发布渠道</p>
+<p><img data-src="./image-20230311161601353.png" alt="image-20230311161601353"></p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="meta"># Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line"><span class="symbol">follow_me:</span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/username || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#Telegram: https:<span class="comment">//t.me/channel_name || fab fa-telegram</span></span></span><br><span class="line"><span class="symbol">  WeChat:</span> <span class="keyword">/images/</span>wechat_channel.jpg || fab fa-weixin</span><br><span class="line">  <span class="meta">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
+<p>(8) 返回顶部按钮并显示阅读进度</p>
+<p><img data-src="./image-20230311161710143.png" alt="image-20230311161710143"></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">back2top:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Back to top in sidebar.</span></span><br><span class="line">  <span class="params">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Scroll percent label in b2t button.</span></span><br><span class="line">  <span class="params">scrollpercent:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Reading progress bar</span></span><br><span class="line"><span class="params">reading_progress:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Available values: top | bottom</span></span><br><span class="line">  <span class="params">position:</span> left</span><br><span class="line">  <span class="params">color:</span> <span class="string">&quot;#37c6c0&quot;</span></span><br><span class="line">  <span class="params">height:</span> <span class="number">5</span>px</span><br></pre></td></tr></table></figure>
+<h3 id="没用但是好玩的配置"><a href="#没用但是好玩的配置" class="headerlink" title="没用但是好玩的配置"></a>没用但是好玩的配置</h3><h4 id="2D人物"><a href="#2D人物" class="headerlink" title="2D人物"></a>2D人物</h4><p>添加一个在左下角看着你的小人，没啥用但是很好玩。其实还有鼠标点击有爱心和好玩的丝线等奇奇怪怪的功能还没来得及配置，虽然没啥用，但是很有意思。</p>
+<p><img data-src="./image-20230311161920116.png" alt="image-20230311161920116"></p>
+<ol>
+<li>下载插件</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save hexo-helper-live2d</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加配置文件</li>
+</ol>
+<p>​    修改站点目录下的_config.yml：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">live2d:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span>  <span class="comment"># 是否启动</span></span><br><span class="line">  <span class="params">scriptFrom:</span> local <span class="comment"># 默认</span></span><br><span class="line">  <span class="params">pluginRootPath:</span> live2dw<span class="symbol">/</span>  <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="params">pluginJsPath:</span> lib<span class="symbol">/</span>  <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">pluginModelPath:</span> assets<span class="symbol">/</span>  <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">tagMode:</span> <span class="literal">false</span>  <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="params">debug:</span> <span class="literal">false</span>  <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="params">model:</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-wanko  ## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-hibiki  ## 模型文件</span></span><br><span class="line">    <span class="params">use:</span> live2d-widget-model-koharu  <span class="comment">## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-shizuku  ## 模型文件</span></span><br><span class="line">  <span class="params">display:</span></span><br><span class="line">    <span class="params">position:</span> right <span class="comment"># 定位方向 left right top bottom</span></span><br><span class="line">    <span class="params">width:</span> <span class="number">150</span>  <span class="comment"># 小人宽度</span></span><br><span class="line">    <span class="params">height:</span> <span class="number">300</span> <span class="comment">#  小人高度</span></span><br><span class="line">    <span class="params">hOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 向 偏移</span></span><br><span class="line">    <span class="params">vOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 像 偏移</span></span><br><span class="line">  <span class="params">mobile:</span></span><br><span class="line">    <span class="params">show:</span> <span class="literal">true</span>  <span class="comment"># 手机端是否显示</span></span><br><span class="line">  <span class="params">react:</span></span><br><span class="line">    <span class="params">opacity:</span> <span class="number">0.7</span>  <span class="comment"># 模型透明度</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装你喜欢的模型</li>
+</ol>
+<p>模型名称如下：</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&gt;live2d-widget-model-chitose</span><br><span class="line">&gt;live2d-widget-model-epsilon2_1</span><br><span class="line">&gt;live2d-widget-model-gf</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">01</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">02</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haruto</span><br><span class="line">&gt;live2d-widget-model-hibiki</span><br><span class="line">&gt;live2d-widget-model-hijiki</span><br><span class="line">&gt;live2d-widget-model-izumi</span><br><span class="line">&gt;live2d-widget-model-koharu</span><br><span class="line">&gt;live2d-widget-model-miku</span><br><span class="line">&gt;live2d-widget-model-ni-j</span><br><span class="line">&gt;live2d-widget-model-nico</span><br><span class="line">&gt;live2d-widget-model-nietzsche</span><br><span class="line">&gt;live2d-widget-model-nipsilon</span><br><span class="line">&gt;live2d-widget-model-nito</span><br><span class="line">&gt;live2d-widget-model-shizuku</span><br><span class="line">&gt;live2d-widget-model-tororo</span><br><span class="line">&gt;live2d-widget-model-tsumiki</span><br><span class="line">&gt;live2d-widget-model-unitychan</span><br><span class="line">&gt;live2d-widget-model-wanko</span><br><span class="line">&gt;live2d-widget-model-z16</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>可直接通过命令下载，比如要下载wanko模型就用：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save live2d-widget-model-wanko</span></span><br></pre></td></tr></table></figure>
+<p>因为是在站点目录下修改的配置文件，所以需要修改路径：</p>
+<p>在博客目录下创建一个文件夹live2d_models，在node_modules中找到下载好的2d人物模型，复制到live2d_models文件夹下。</p>
+<p>修改配置文件：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">model:</span><br><span class="line">    # use: live2d-widget-model-wanko  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-hibiki  ## 模型文件</span><br><span class="line">    use: live2d-widget-model-koharu  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-shizuku  ## 模型文件</span><br></pre></td></tr></table></figure>
+<p>use后修改为模型名称即可完成修改。</p>
 ]]></content>
       <tags>
         <tag>博客</tag>
@@ -300,104 +393,6 @@
 <p>这时如果出现权限问题导致部署失败，在服务器端运行：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R git:git /var/repo/</span><br><span class="line"><span class="built_in">chown</span> -R git:git /var/hexo/</span><br></pre></td></tr></table></figure>
 <p>部署成功后，就可以通过公网或者域名访问博客了。</p>
-]]></content>
-      <tags>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>腾讯云服务器+Hexo 搭建博客（三）</title>
-    <url>/2023/03/11/15-33-07/</url>
-    <content><![CDATA[<h1 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h1><h2 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h2><h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>在腾讯云内申请一个免费的SSL证书。</p>
-<span id="more"></span>
-<p><img data-src="./image-20230311153628597.png" alt="image-20230311153628597"></p>
-<p>下载证书（Nginx）：</p>
-<p><img data-src="./image-20230311153709277.png" alt="image-20230311153709277"></p>
-<p>解压后得到：</p>
-<p><img data-src="./image-20230311153858130.png" alt="image-20230311153858130"></p>
-<p>使用scp命令将证书文件拷贝到服务器上：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> 证书文件夹</span><br><span class="line">scp * git@公网ip:/usr/<span class="keyword">local</span>/soft/nginx/<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在服务器端修改配置文件</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/soft/nginx</span><br><span class="line">vim <span class="keyword">conf</span>/nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>修改内容如下：</p>
-<p><img data-src="./image-20230311154255884.png" alt="image-20230311154255884"></p>
-<p>在文件最后修改server_name为你的公网ip或域名、ssl_certificate为*.pem文件存放的位置、ssl_certificate_key为*.key文件存放的位置。</p>
-<p>修改location为hexo目录所在位置。</p>
-<p>修改原有端口80的监听，加一行配置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">return</span> 301 https://www.xxxxxx.cn<span class="variable">$request_uri</span>;</span><br></pre></td></tr></table></figure>
-<p><img data-src="./image-20230311154842956.png" alt="image-20230311154842956"></p>
-<p>重启nginx:</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/soft/nginx/sbin</span></span><br><span class="line"><span class="string">./nginx</span> -s <span class="keyword">reload</span></span><br></pre></td></tr></table></figure>
-<h2 id="Hexo主题配置"><a href="#Hexo主题配置" class="headerlink" title="Hexo主题配置"></a>Hexo主题配置</h2><p>我是用的是next主题，配置后效果如下，如果不喜欢的话可以搜索其他博客的主题配置。</p>
-<p><img data-src="./image-20230311154953981.png" alt="image-20230311154953981"></p>
-<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><p>1.前往<a href="https://github.com/theme-next/hexo-theme-next">Next主题制作团队的主页</a>下载Zip压缩包</p>
-<p><img data-src="./image-20230311155244994.png" alt="image-20230311155244994"></p>
-<ol>
-<li>下载后，解压到博客目录下的themes文件夹内</li>
-</ol>
-<p><img data-src="./image-20230311155419423.png" alt="image-20230311155419423"></p>
-<p>重命名为next:</p>
-<p><img data-src="./image-20230311155356824.png" alt="image-20230311155356824"></p>
-<ol>
-<li><p>修改站点配置文件_config.yml</p>
-<p>基础配置</p>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attribute">title</span>:  					<span class="comment">#博客标题</span></span><br><span class="line"><span class="attribute">subtitle</span>: 					<span class="comment">#副标题</span></span><br><span class="line"><span class="attribute">description</span>:				<span class="comment">#网站描述 </span></span><br><span class="line"><span class="attribute">keywords</span>: 					<span class="comment">#网站关键词</span></span><br><span class="line"><span class="attribute">author</span>: 王士宁	  			  <span class="comment">#名字</span></span><br><span class="line"><span class="attribute">language</span>: zh-CN 			<span class="comment">#网站参考语言</span></span><br><span class="line"><span class="attribute">timezone</span>: &#x27;Asia/Shanghai&#x27; 	<span class="comment"># 时区</span></span><br></pre></td></tr></table></figure>
-<p>修改主题：</p>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:<span class="comment">//hexo.io/plugins/</span></span><br><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改主题配置文件themes\next\_config.yml</p>
-<p>(1) 主题风格</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta"># scheme: Mist</span></span><br><span class="line"><span class="meta"># scheme: Pisces</span></span><br><span class="line"><span class="meta"># scheme: Gemini</span></span><br></pre></td></tr></table></figure>
-<p>(2) 设置导航栏菜单</p>
-<p>可自行增减功能，取消注释即可启用。</p>
-<p><img data-src="./image-20230311160301923.png" alt="image-20230311160301923"></p>
-</li>
-</ol>
-<p>（3）侧边栏设置</p>
-<p>侧边栏我设置的位置是左侧，同时设置永远显示，这里也可以根据注释修改</p>
-<p><img data-src="./image-20230311160412761.png" alt="image-20230311160412761"></p>
-<p>（4） 侧边栏头像</p>
-<p>​    url链接为图片的相对路径，在next/source目录下。</p>
-<p><img data-src="./image-20230311160550828.png" alt="image-20230311160550828"></p>
-<p>（5）社交链接</p>
-<p>这里是侧边栏链接，可以指向某个链接或某个网址。</p>
-<p>这里我只加了一个email，因为其他账号都没有发啥东西，等开始更新再添加。</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">social:</span></span><br><span class="line">  <span class="meta">#GitHub: https:<span class="comment">//github.com/yourname || fab fa-github</span></span></span><br><span class="line">  E-Mail: <span class="number">2803125272</span>@qq.com || fa fa-envelope</span><br><span class="line">  <span class="meta">#Weibo: https:<span class="comment">//weibo.com/yourname || fab fa-weibo</span></span></span><br><span class="line">  <span class="meta">#Google: https:<span class="comment">//plus.google.com/yourname || fab fa-google</span></span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/yourname || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#FB Page: https:<span class="comment">//www.facebook.com/yourname || fab fa-facebook</span></span></span><br><span class="line">  <span class="meta">#StackOverflow: https:<span class="comment">//stackoverflow.com/yourname || fab fa-stack-overflow</span></span></span><br><span class="line">  <span class="meta">#YouTube: https:<span class="comment">//youtube.com/yourname || fab fa-youtube</span></span></span><br><span class="line">  <span class="meta">#Instagram: https:<span class="comment">//instagram.com/yourname || fab fa-instagram</span></span></span><br><span class="line">  <span class="meta">#Skype: skype:yourname?call|chat || fab fa-skype</span></span><br><span class="line"><span class="symbol">  </span></span><br><span class="line"><span class="symbol">social_icons:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  icons_only:</span> false</span><br><span class="line"><span class="symbol">  transition:</span> false</span><br><span class="line"></span><br><span class="line"><span class="meta"># Blog rolls</span></span><br><span class="line"><span class="symbol">links_settings:</span></span><br><span class="line"><span class="symbol">  icon:</span> fa fa-link</span><br><span class="line"><span class="symbol">  title:</span> Links</span><br><span class="line">  <span class="meta"># Available values: block | inline</span></span><br><span class="line"><span class="symbol">  layout:</span> block</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">links:</span></span><br><span class="line">  <span class="meta">#Title: http:<span class="comment">//yoursite.com</span></span></span><br></pre></td></tr></table></figure>
-<p>（6）打赏功能</p>
-<p>效果如下</p>
-<p><img data-src="./image-20230311161459148.png" alt="image-20230311161459148"></p>
-<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Reward (Donate)</span></span><br><span class="line"><span class="comment"># Front-matter variable (unsupport animation).</span></span><br><span class="line"><span class="params">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="params">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="params">comment:</span> Q：如果你觉得博主写的不错，可以打赏支持一下</span><br><span class="line">  <span class="comment">#comment: Donate comment here.</span></span><br><span class="line"></span><br><span class="line"><span class="params">reward:</span></span><br><span class="line">  <span class="params">wechatpay:</span> <span class="symbol">/images/wechatpay.jpg</span></span><br><span class="line">  <span class="params">alipay:</span> <span class="symbol">/images/alipay.jpg</span></span><br><span class="line">  <span class="comment">#paypal: /images/paypal.png</span></span><br><span class="line">  <span class="comment">#bitcoin: /images/bitcoin.png</span></span><br></pre></td></tr></table></figure>
-<p>（7）关注其他发布渠道</p>
-<p><img data-src="./image-20230311161601353.png" alt="image-20230311161601353"></p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Subscribe through Telegram Channel, Twitter, etc.</span></span><br><span class="line"><span class="meta"># Usage: `Key: permalink || icon` (Font Awesome)</span></span><br><span class="line"><span class="symbol">follow_me:</span></span><br><span class="line">  <span class="meta">#Twitter: https:<span class="comment">//twitter.com/username || fab fa-twitter</span></span></span><br><span class="line">  <span class="meta">#Telegram: https:<span class="comment">//t.me/channel_name || fab fa-telegram</span></span></span><br><span class="line"><span class="symbol">  WeChat:</span> <span class="keyword">/images/</span>wechat_channel.jpg || fab fa-weixin</span><br><span class="line">  <span class="meta">#RSS: /atom.xml || fa fa-rss</span></span><br></pre></td></tr></table></figure>
-<p>(8) 返回顶部按钮并显示阅读进度</p>
-<p><img data-src="./image-20230311161710143.png" alt="image-20230311161710143"></p>
-<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">back2top:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Back to top in sidebar.</span></span><br><span class="line">  <span class="params">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Scroll percent label in b2t button.</span></span><br><span class="line">  <span class="params">scrollpercent:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Reading progress bar</span></span><br><span class="line"><span class="params">reading_progress:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Available values: top | bottom</span></span><br><span class="line">  <span class="params">position:</span> left</span><br><span class="line">  <span class="params">color:</span> <span class="string">&quot;#37c6c0&quot;</span></span><br><span class="line">  <span class="params">height:</span> <span class="number">5</span>px</span><br></pre></td></tr></table></figure>
-<h3 id="没用但是好玩的配置"><a href="#没用但是好玩的配置" class="headerlink" title="没用但是好玩的配置"></a>没用但是好玩的配置</h3><h4 id="2D人物"><a href="#2D人物" class="headerlink" title="2D人物"></a>2D人物</h4><p>添加一个在左下角看着你的小人，没啥用但是很好玩。其实还有鼠标点击有爱心和好玩的丝线等奇奇怪怪的功能还没来得及配置，虽然没啥用，但是很有意思。</p>
-<p><img data-src="./image-20230311161920116.png" alt="image-20230311161920116"></p>
-<ol>
-<li>下载插件</li>
-</ol>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save hexo-helper-live2d</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>添加配置文件</li>
-</ol>
-<p>​    修改站点目录下的_config.yml：</p>
-<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="params">live2d:</span></span><br><span class="line">  <span class="params">enable:</span> <span class="literal">true</span>  <span class="comment"># 是否启动</span></span><br><span class="line">  <span class="params">scriptFrom:</span> local <span class="comment"># 默认</span></span><br><span class="line">  <span class="params">pluginRootPath:</span> live2dw<span class="symbol">/</span>  <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="params">pluginJsPath:</span> lib<span class="symbol">/</span>  <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">pluginModelPath:</span> assets<span class="symbol">/</span>  <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="params">tagMode:</span> <span class="literal">false</span>  <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="params">debug:</span> <span class="literal">false</span>  <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="params">model:</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-wanko  ## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-hibiki  ## 模型文件</span></span><br><span class="line">    <span class="params">use:</span> live2d-widget-model-koharu  <span class="comment">## 模型文件</span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-shizuku  ## 模型文件</span></span><br><span class="line">  <span class="params">display:</span></span><br><span class="line">    <span class="params">position:</span> right <span class="comment"># 定位方向 left right top bottom</span></span><br><span class="line">    <span class="params">width:</span> <span class="number">150</span>  <span class="comment"># 小人宽度</span></span><br><span class="line">    <span class="params">height:</span> <span class="number">300</span> <span class="comment">#  小人高度</span></span><br><span class="line">    <span class="params">hOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 向 偏移</span></span><br><span class="line">    <span class="params">vOffset:</span> <span class="operator">-</span><span class="number">15</span>  <span class="comment"># 像 偏移</span></span><br><span class="line">  <span class="params">mobile:</span></span><br><span class="line">    <span class="params">show:</span> <span class="literal">true</span>  <span class="comment"># 手机端是否显示</span></span><br><span class="line">  <span class="params">react:</span></span><br><span class="line">    <span class="params">opacity:</span> <span class="number">0.7</span>  <span class="comment"># 模型透明度</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>安装你喜欢的模型</li>
-</ol>
-<p>模型名称如下：</p>
-<blockquote>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&gt;live2d-widget-model-chitose</span><br><span class="line">&gt;live2d-widget-model-epsilon2_1</span><br><span class="line">&gt;live2d-widget-model-gf</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">01</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haru/<span class="number">02</span> (<span class="selector-tag">use</span> npm install <span class="attr">--save</span> live2d-widget-model-haru)</span><br><span class="line">&gt;live2d-widget-model-haruto</span><br><span class="line">&gt;live2d-widget-model-hibiki</span><br><span class="line">&gt;live2d-widget-model-hijiki</span><br><span class="line">&gt;live2d-widget-model-izumi</span><br><span class="line">&gt;live2d-widget-model-koharu</span><br><span class="line">&gt;live2d-widget-model-miku</span><br><span class="line">&gt;live2d-widget-model-ni-j</span><br><span class="line">&gt;live2d-widget-model-nico</span><br><span class="line">&gt;live2d-widget-model-nietzsche</span><br><span class="line">&gt;live2d-widget-model-nipsilon</span><br><span class="line">&gt;live2d-widget-model-nito</span><br><span class="line">&gt;live2d-widget-model-shizuku</span><br><span class="line">&gt;live2d-widget-model-tororo</span><br><span class="line">&gt;live2d-widget-model-tsumiki</span><br><span class="line">&gt;live2d-widget-model-unitychan</span><br><span class="line">&gt;live2d-widget-model-wanko</span><br><span class="line">&gt;live2d-widget-model-z16</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>可直接通过命令下载，比如要下载wanko模型就用：</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install <span class="comment">--save live2d-widget-model-wanko</span></span><br></pre></td></tr></table></figure>
-<p>因为是在站点目录下修改的配置文件，所以需要修改路径：</p>
-<p>在博客目录下创建一个文件夹live2d_models，在node_modules中找到下载好的2d人物模型，复制到live2d_models文件夹下。</p>
-<p>修改配置文件：</p>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">model:</span><br><span class="line">    # use: live2d-widget-model-wanko  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-hibiki  ## 模型文件</span><br><span class="line">    use: live2d-widget-model-koharu  ## 模型文件</span><br><span class="line">    # use: live2d-widget-model-shizuku  ## 模型文件</span><br></pre></td></tr></table></figure>
-<p>use后修改为模型名称即可完成修改。</p>
 ]]></content>
       <tags>
         <tag>博客</tag>
