@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>611-MOT</title>
+    <url>/2025/03/05/22-40-26/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>待更新。</p>
+]]></content>
+      <tags>
+        <tag>MOT</tag>
+        <tag>项目展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HL-Detector</title>
+    <url>/2025/03/05/22-41-51/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>待更新。</p>
+]]></content>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Gitee 搭建人生中第一个博客 （新人特供版）</title>
     <url>/2023/03/11/10-12-16/</url>
     <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>​        最初有搭建博客的想法是因为朋友建议，加上我自己也确实想开始写一些东西记录自己的学习过程，于是经过两天<del>痛苦</del>快乐的学习和尝试，我终于成功搭建起了自己第一个博客。<br>​        一开始我用的是<strong>GitHub</strong>+<strong>hexo</strong>搭建博客，但是这种方式打开和更新都太慢了，于是我又在同学的建议下用<strong>gitee</strong>+<strong>hexo</strong>的方式搭建博客，果然快了不少，这里放一下我最开始看的<a href="https://www.simon96.online/2018/10/12/hexo-tutorial/">链接</a>。讲的还是很清楚的，我在这里主要写一下我搭建过程中遇到的问题。</p>
@@ -59,6 +81,168 @@
 ]]></content>
       <tags>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RoboMaster-CV</title>
+    <url>/2025/03/05/22-40-15/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>待更新。</p>
+]]></content>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>RoboMaster</tag>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ST-Track</title>
+    <url>/2025/03/05/11-11-10/</url>
+    <content><![CDATA[<h1 id="卫星视频运动目标检测与跟踪"><a href="#卫星视频运动目标检测与跟踪" class="headerlink" title="卫星视频运动目标检测与跟踪"></a>卫星视频运动目标检测与跟踪</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目主要目的为参加ICPR2024卫星视频运动目标检测与跟踪比赛，比赛地址<a href="https://satvideodt2024.github.io/">https://satvideodt2024.github.io/</a>。比赛包括两个赛道：Track1：Tiny moving object detection in satellite videos；Track2：Multiple-object tracking in satellite videos。本项目主要介绍本人负责的多目标跟踪部分，针对卫星视频运动目标的跟踪任务。<br>Track1基于DSFNet，提出针对卫星视频运动目标的HM-DSFNet++,在测试数据集上达到<strong>48.50</strong>的mAP; Track2基于ByteTrack框架，提出针对卫星视频运动目标的两阶段匹配算法ST-Track，在测试数据集上达到<strong>44.39</strong>的MOTA。<br><span id="more"></span><br><img data-src="result.png" alt="Result of Track1 and Track2"></p>
+<h3 id="项目成果"><a href="#项目成果" class="headerlink" title="项目成果"></a>项目成果</h3><ul>
+<li>Track1：Tiny moving object detection in satellite videos. The Second place in the final ranking.</li>
+<li>Track2：Multiple-object tracking in satellite videos. The Second place in the final ranking.</li>
+<li>论文：The Two Challenge on Moving Object Detection and Tracking in Satellite Videos: Methods and Results. ICPR2024.<br><center class="half">
+<img data-src="./track1.png" width="200">
+<img data-src="./track2.png" width="200">
+</center><h2 id="数据集介绍"><a href="#数据集介绍" class="headerlink" title="数据集介绍"></a>数据集介绍</h2>卫星视频多目标跟踪任务旨在定位多个感兴趣的对象，保持它们的身份，并在整个视频中找出它们各自的轨迹。任务数据包括从 VISO（<a href="https://drive.google.com/drive/folders/1znU8wBDiqsMe0lRW5z9gqcsxKPhz1eIq">google Drive</a>，<a href="https://pan.baidu.com/share/init?surl=XAXfMljS5r8X74NLXDjaXQ">Baidu Drive</a>（提取代码：VISO））数据集中选择的95 个视频（视频 1 至 95），共计 28,500 帧。具体来说，视频 1 至 65 将用作训练集，视频 66 至 75 将用作验证集。将提供每个帧中每个对象的边界框注释和实例 ID。测试集由视频 76 至 95 组成，只提供第一帧的注释作为初始化。参与者要在训练集上训练自己的模型，并在验证集上验证其性能。然后，使用最终确定的模型在测试集上生成跟踪结果。</li>
+</ul>
+<p>数据集详细介绍见：<a href="https://satvideodt2024.github.io/">https://satvideodt2024.github.io/</a></p>
+<!-- <center><img data-src="./ST-Track/demo.gif" width = "100%" height = "100%"></center> -->
+<video src="./demo.mp4" type="video/avi" controls="controls" width="100%" height="100%">
+</video>
+
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>卫星视频运动目标的跟踪主要难点在于，卫星高空拍摄的目标尺寸非常小（目标小于5px），导致外观特征完全失真，无法利用外观特征进行数据关联。同时由于外观特征严重模糊，目标检测算法的置信度普遍偏低，导致跟踪过程出现严重的目标丢失和错误匹配问题。因此如何抑制检测的错误结果，同时对低置信度的外观模糊目标进行匹配是卫星视频目标跟踪的主要难念。<br>因此，本项目基于ByteTrack框架提出了一种针对卫星视频运动目标的两阶段匹配算法两阶段匹配方法（ST-Track），以Track1的检测结果作为MOT任务的输入，采用综合关联机制保证消失目标的轨迹连续性，设计基于空间位置关系和外观特征的细粒度相似性评估，避免错误关联，提高跟踪稳定性，最后采用智能轨迹维护与更新，结合基于过滤器的运动选择机制，进一步提升跟踪精度和鲁棒性。最终在测试数据集上达到44.39的MOTA。<br><img data-src="./ST-Track.png" alt="ST-Track"></p>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p>跟踪轨迹可视化：</p>
+<p><video src="./track_gj.mp4" type="video/avi" controls="controls" width="100%" height="100%">
+</video><br><!-- <video src='./ST-Track/track_result.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
+</video> --><br><!-- <video src='./ST-Track/track_result2.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
+</video> --><br>跟踪结果可视化：</p>
+<p><video src="./track_result3.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
+</video></p>
+<p><video src="./track_result4.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
+</video></p>
+<p><video src="./track_result5.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
+</video><br><!-- <video src='./ST-Track/track_result6.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
+</video> --></p>
+]]></content>
+      <tags>
+        <tag>MOT</tag>
+        <tag>项目展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SeCap-AGPReID</title>
+    <url>/2025/03/04/15-19-48/</url>
+    <content><![CDATA[<h1 id="空地跨视角行人重识别"><a href="#空地跨视角行人重识别" class="headerlink" title="空地跨视角行人重识别"></a>空地跨视角行人重识别</h1><h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p>本项目开始于2024年3月，2024年11月结束。主要研究空中和地面视角的跨视角ReID任务。作为xx项目鲁棒跟踪模块的预研方向，项目主要贡献为：</p>
+<ul>
+<li>提出了一种自校准自学习的提示学习方法SeCap，用于解决AGPReID任务中的视角差异问题</li>
+<li>提出了两个大规模的数据集 LAGPeR和G2APS-ReID</li>
+<li>SeCap在所有AGPReID数据集上均取得了SOTA结果</li>
+</ul>
+<h3 id="最终项目成果："><a href="#最终项目成果：" class="headerlink" title="最终项目成果："></a>最终项目成果：</h3><ul>
+<li>2025 CVPR Accepted. Final Rating： 5 5 4</li>
+<li>一项发明专利：一种基于自进化视觉提示学习的空地协同目标识别方法（申请阶段）<span id="more"></span>
+<img data-src="./LAGPeR.png" alt="图1 AGPReID任务"></li>
+</ul>
+<p>项目地址：<a href="https://github.com/zhengye1995/SeCap-AGPReID">https://github.com/zhengye1995/SeCap-AGPReID</a></p>
+<h2 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h2><h3 id="数据集："><a href="#数据集：" class="headerlink" title="数据集："></a>数据集：</h3><p>LAGPeR包含4231个ID，63841张图片，包括21个相机，分为地面平视、地面斜视和空中俯视三个视角。G2APS-ReID包含2788个ID，200864张图片，包括2个相机，分为地面平视和空中俯视两个视角。LAGPeR为本项目收集、标注、划分和构建的数据集；G2APS-ReID为从一个大规模的行人搜索数据集<a href="https://dl.acm.org/doi/abs/10.1145/3581783.3612105">G2APS</a>中重构的数据集。</p>
+<p><img data-src="./data.png" alt="表1 数据集信息"></p>
+<p>G2APS-ReID数据集包含2个实验设置：$G \rightarrow A$ 和 $A \rightarrow G$；LAGPeR数据集包含3个实验设置：$G \rightarrow G$、$G \rightarrow A$ 和 $G \rightarrow A+G$。其中，$G \rightarrow A$表示在地面视角下图像做查询（query），在空中视角下图像做图库（gallery）；$G \rightarrow A+G$表示在地面视角做查询，图库则有地面视角和空中视角共同组成。</p>
+<p><img data-src="./data_split.png" alt="表2 数据集划分"></p>
+<h3 id="模型："><a href="#模型：" class="headerlink" title="模型："></a>模型：</h3><p>本项目主要研究AGPReID任务，因此主要关注视角差异对ReID模型的影响。本项目提出了一种自校准自学习的提示学习方法SeCap，用于解决AGPReID任务中的视角差异问题。SeCap的整体框架，如下图所示，采用了编解码器变压器架构。该编码器是一个添加了视角解耦能力的标准的ViT。与传统的ViT相比，我们的方法包含了一个视图令牌，并在每一层对Cls令牌进行分层解耦，有效地在Cls令牌中分离了视角特定和视角独立的特征，同时从图像中提取视觉特征。我们从<a href="https://arxiv.org/abs/2403.14513">VDT</a>中汲取灵感，使用了一个视图分类器来约束视图标记。利用正交损失来确保透视特征的完全分离。该解码器包括提示校准模块（PRM）和局部特征细化模块（LFRM）。PRM根据视图解耦信息自适应地生成和校准不同视角的提示。同时，LFRM利用来自PRM的重新校准的提示来解码视觉特征中的局部特征。<br><img data-src="./Secap.png" alt="图2 SeCap整体框架"></p>
+<h4 id="提示重校准模块"><a href="#提示重校准模块" class="headerlink" title="提示重校准模块"></a>提示重校准模块</h4><p>提示重新校准模块（PRM）是基于变压器译码器架构设计的，旨在自适应地生成适合不同视角的提示。具体来说，这个模块初始化并维护一组提示${[{Prompt}_1，{Prompt}_2，\dots，{Prompt}_L]}$，其中$L$是一个表示提示长度的超参数。在提示的重新校准过程中，该模块接收到来自主干网络的视图解耦特征。如图2（a）所示，该模块最初通过多头交叉注意将视图解耦特征整合到可学习提示中，从而增强了提示对视觉特征中视点不变信息的关注。随后，采用多头注意机制对提示序列中的每个提示的信息进行合并和校准，确保视图解耦特征的全面集成。最后，应用前馈网络（FFN）来生成专门针对视图解耦特性而定制的重新校准的提示。</p>
+<h4 id="局部特征细化模块"><a href="#局部特征细化模块" class="headerlink" title="局部特征细化模块"></a>局部特征细化模块</h4><p>局部特征模块是一个基于TransFormer的解码器，如图所示，它利用PRM重新校准后的特征提示$P<em>{re}$对骨干网络输出的视觉特征$F</em>{local}$进行解耦。重新校准的提示融合了全局视图解耦特征的信息，能够指导LFRM解码出局部特征中与视角无关特征，从而实现局部特征与全局特征的对齐。具体来说LPRM由双向注意力块和特征输出模块组成。双向注意力模块在在提示到图像编码（prompt-to-image encoding）和图像编码到提示（image-to-prompt encoding）两个方向上并行运用自注意力（self-attention）和交叉注意力（cross-attention）动态更新并增强所有特征表示。通过双向注意力，LPRM可以高效的融合并更新视觉特征的局部信息和特征提示中的解耦信息。为了保持解码模块的轻量化，我们在双向注意力模块中只堆叠两个双向注意力块。同时，在双向注意力模块后，特征输出模块使用交叉注意力和自注意力对双向注意力模块输出的局部视觉特征和提示特征进行进一步整合，从而解码出局部视觉特征中视角无关的特征。</p>
+<h3 id="项目结果"><a href="#项目结果" class="headerlink" title="项目结果"></a>项目结果</h3><h4 id="对比实验结果"><a href="#对比实验结果" class="headerlink" title="对比实验结果"></a>对比实验结果</h4><p>在LAGPeR和G2APS-ReID数据集上，SeCap均取得了SOTA的结果。<br><img data-src="./experience.png" alt="表3 LAGPeR和G2APS-ReID的对比实验结果"><br>在 AG-ReID、AG-ReIDv2和CARGO上的结果。<br><img data-src="./experience2.png" alt="表4-1 CARGO对比实验结果"><br><img data-src="./experience4.png" alt="表4-2 AG-ReIDv1对比实验结果"><br><img data-src="./experience3.png" alt="表4-3 AG-ReIDv2对比实验结果"></p>
+<h4 id="消融实验结果："><a href="#消融实验结果：" class="headerlink" title="消融实验结果："></a>消融实验结果：</h4><p>整体消融实验，验证PRM、LFRM、VDT的效果：<br><img data-src="./ab1.png" alt="表5-1 吗，模块整体消融实验"><br>模块消融实验，研究PRM、LFRM的各种实现方式：<br><img data-src="./ab2.png" alt="表5-1 模块内部消融实验"></p>
+<h4 id="可视化结果："><a href="#可视化结果：" class="headerlink" title="可视化结果："></a>可视化结果：</h4><p>t-SNE可视化结果：<br><img data-src="./visul1.png" alt="tsne可视化结果"><br>检索结果可视化：<br><img data-src="./performance.png" alt="检索结果"><br>Attention_Map可视化：<br><img data-src="./attention_map.png" alt="Attention Map结果"><br>参数分析可视化：<br><img data-src="./visul2.png" alt="超参数分析"></p>
+]]></content>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>ReID</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用VsCode插件或SSH命令连接服务器</title>
+    <url>/2023/03/13/17-38-10/</url>
+    <content><![CDATA[<p>​        记录一下使用服务器的过程，包括如何使用shell连接服务器、如何使用vscode的Remote-SSH 插件连接服务器、如何修改用户密码、如何从终端拷贝文件、免密登录等。</p>
+<span id="more"></span>
+<h2 id="SSH登录"><a href="#SSH登录" class="headerlink" title="SSH登录"></a>SSH登录</h2><p>​        ssh登录是最常见的方式，可以直接在shell窗口下用命令连接。使用这种方式需要对shell命令的使用有一定熟练度，熟悉使用Vim等。</p>
+<p>ssh登录的命令：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span> </span><br></pre></td></tr></table></figure>
+<p>ssh免密登录：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh-copy-id -<span class="selector-tag">i</span> ~/.ssh/id_rsa<span class="selector-class">.pub</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
+<p>scp拷贝文件</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">scp -n <span class="selector-attr">[file path]</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
+<p>ssh生成公钥和私钥(最简单的，不添加邮箱、用户名和密码)</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t ras</span></span><br></pre></td></tr></table></figure>
+<h2 id="Remote-SSH"><a href="#Remote-SSH" class="headerlink" title="Remote-SSH"></a>Remote-SSH</h2><p>​        Vscode这个插件我觉得很好用，用这个插件和在本地用Vscode打开一个文件夹一样，非常方便，但是需要配置一下：</p>
+<ol>
+<li>点 ’+‘创建连接</li>
+</ol>
+<p><img data-src="./image-20230313171800058.png" alt="image-20230313171800058"></p>
+<ol>
+<li>输入：<code>[UserName]@[HostName]:[Port]</code></li>
+</ol>
+<p><img data-src="./image-20230313171729967.png" alt="image-20230313171729967"></p>
+<ol>
+<li><p>输入密码</p>
+</li>
+<li><p>打开目录</p>
+<p><img data-src="./image-20230313171950894.png" alt="image-20230313171950894"></p>
+</li>
+<li><p>选择对应目录</p>
+</li>
+</ol>
+<p><img data-src="./image-20230313172028243.png" alt="image-20230313172028243"></p>
+<p>也可以直接修改插件的配置文件</p>
+<p>​    <img data-src="./image-20230313172324063.png" alt="image-20230313172324063">    </p>
+<p>配置文件格式如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Host</span><span class="meta"> [服务器名称(自己取个名字就好)]</span></span><br><span class="line">    <span class="attribute">HostName</span><span class="meta"> [ip]</span></span><br><span class="line">    <span class="attribute">Port</span><span class="meta"> [Port]</span></span><br><span class="line">    <span class="attribute">User</span><span class="meta"> [UserName]</span></span><br></pre></td></tr></table></figure>
+<p>修改完成后重启一下VScode就可以了。</p>
+<h3 id="配置免密登录"><a href="#配置免密登录" class="headerlink" title="配置免密登录"></a>配置免密登录</h3><p>​        SSH配置完免密登录后，VScode登录也可以免密登录。</p>
+<p>​        也可以修改authorized_keys文件，把本地电脑的公钥拷贝到这个文件当中。</p>
+<p><img data-src="./image-20230313172547837.png" alt="image-20230313172547837"></p>
+<p>​        获取公钥的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>配置环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时空图神经网络综述</title>
+    <url>/2023/03/11/16-56-27/</url>
+    <content><![CDATA[<h1 id="时空图神经网络"><a href="#时空图神经网络" class="headerlink" title="时空图神经网络"></a>时空图神经网络</h1><p>​        毕设相关，看一下时空图神经网络的东西。导师让整理一下时空图网络的综述，简单记录一下。</p>
+<span id="more"></span>
+<p>​        时空图神经网络的分类关系图示如下：</p>
+<p><img data-src="./STGNN综合图-color.png" alt="STGNN综合图-color"></p>
+<h1 id="混合模型时空图网络"><a href="#混合模型时空图网络" class="headerlink" title="混合模型时空图网络"></a>混合模型时空图网络</h1><p>混和时空图网络指的是针对时间维度的信息，使用一种新的机器学习算法（RNN、1-D conv、Transformer）来提取特征的时空图网络。代表特征是分别考虑了时间维度和空间维度，有两种机器学习算法分别提取时间和空间的图结构信息。</p>
+<h2 id="空间模块"><a href="#空间模块" class="headerlink" title="空间模块"></a>空间模块<img data-src="./STGNN综合图 Hybrid.png" alt="STGNN综合图 Hybrid"></h2><h3 id="频谱域图神经网络"><a href="#频谱域图神经网络" class="headerlink" title="频谱域图神经网络"></a>频谱域图神经网络</h3><p>最常见的是使用基于频谱域的图卷积的方式来获取空间信息，STGCN就是使用的切比雪夫GCN。</p>
+<p>代表算法：STGCN、StemGNN、GCLSTM、CGTransfo</p>
+<h3 id="空间域图神经网络"><a href="#空间域图神经网络" class="headerlink" title="空间域图神经网络"></a>空间域图神经网络</h3><p>随着空间域图神经网络的发展，很多算法开始使用空间图神经网络对时空图的空间维度信息进行建模，代表性算法：RGNN(使用带有跳跃连接的递归图神经网络）</p>
+<h4 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h4><p>在MTGNN中使用了带有跳跃连接的图卷积网络，同时GCN也被应用于Structural RNN中。</p>
+<h4 id="GAT"><a href="#GAT" class="headerlink" title="GAT"></a>GAT</h4><p>带有attention机制的图神经网络（Graph Attention Network）也可用于对空间维度信息进行建模，代表算法： HST-GNN（使用GAT级联Graph Transformer和一个分层池化机制）、A2GNN（使用GAT和自动图学习器来提高预测性能）。</p>
+<h4 id="GIN"><a href="#GIN" class="headerlink" title="GIN"></a>GIN</h4><p>GIN也被用于时空图网络（模拟脑图，表示大脑中的连接）</p>
+<h4 id="Gated-GNN"><a href="#Gated-GNN" class="headerlink" title="Gated GNN"></a>Gated GNN</h4><p>FG-GAGA中使用带有门控的GNN来对空间信息进行建模</p>
+<h3 id="Graph-Transformer"><a href="#Graph-Transformer" class="headerlink" title="Graph Transformer"></a>Graph Transformer</h3><p>随着Graph Transformer的引入，图神经网络取得了重大进展，同时处理图结构的数据是Transformer这一体系结构的一项重要扩展。Graph Transformer使用自注意机制来更新节点的表示，并已被证明可以在几个基于图的任务上实现了最先进的结果。</p>
+<p>代表算法：TransMOT、Forecaster</p>
+<p>HST-GNN网络中也使用GAT连接了一个Graph Transformer。</p>
+<h2 id="时间模块"><a href="#时间模块" class="headerlink" title="时间模块"></a>时间模块</h2><h3 id="1-D卷积神经网络"><a href="#1-D卷积神经网络" class="headerlink" title="1-D卷积神经网络"></a>1-D卷积神经网络</h3><p>最经典的是在STGCN中，使用1D-CNN来对时间维度信息进行建模；同时MTGNN中也是用1D-CNN作为一个初始层。</p>
+<h3 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h3><p>RNN和他的各种变化（GLU、LSTM）都被广泛应用于混合时空图网络中，使用RNN对时间维度信息进行建模。</p>
+<p>代表算法：Structural RNN、FG-GAGA GNN（使用GRU）、MResGNN(使用了GRU和LSTM)</p>
+<p>HST-GNN中在一个更广泛的encoder-decoder架构中使用了2个带注意力机制的LSTM。</p>
+<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>代表算法：TransMOT、Forecaster、STAGIN、GCTransfo</p>
+<h1 id="单图神经网络"><a href="#单图神经网络" class="headerlink" title="单图神经网络"></a>单图神经网络</h1><p>在时空图网络中，另一种对时间维度建模的方法是将时间信息定义为图神经网络内部的一个结构。</p>
+<p><img data-src="./STGNN综合图.solo.png" alt="STGNN综合图.solo"></p>
+<h3 id="将时间定义为图的边"><a href="#将时间定义为图的边" class="headerlink" title="将时间定义为图的边"></a>将时间定义为图的边</h3><p>在GSTGCN中将时间定义为一条边，将空间邻接矩阵修改为一个时空邻接矩阵。</p>
+<h3 id="将时间作为信号输入"><a href="#将时间作为信号输入" class="headerlink" title="将时间作为信号输入"></a>将时间作为信号输入</h3><p>STGDN中使用时间层次模型将时间作为输入信号输入到GAT中。此外，在CausalGNN中使用门控的因果扩展块来处理时间输入，该块的输入与空间域一个类似的双块结构的输出并行输入到一个动态的GCN中。</p>
+<h3 id="将时间维度建模子图"><a href="#将时间维度建模子图" class="headerlink" title="将时间维度建模子图"></a>将时间维度建模子图</h3><p>U-STGCN中将时间建模为GIN中的一个子图；ASTGCN中使用时间相似度图来解释时间域，形成了一个多图集。</p>
+<h3 id="使用Sandwich结构"><a href="#使用Sandwich结构" class="headerlink" title="使用Sandwich结构"></a>使用Sandwich结构</h3><p>ST-GNN中使用两个1D-CNN来建模时间，在该结构中1D-CNN被作为子模块加在GCN之间。</p>
+<h3 id="时间作为滤波器"><a href="#时间作为滤波器" class="headerlink" title="时间作为滤波器"></a>时间作为滤波器</h3><p>在GCN中引入时间和空间作为多元积分的莱布尼茨滤波器。</p>
+]]></content>
+      <tags>
+        <tag>时空图神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -188,89 +372,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用VsCode插件或SSH命令连接服务器</title>
-    <url>/2023/03/13/17-38-10/</url>
-    <content><![CDATA[<p>​        记录一下使用服务器的过程，包括如何使用shell连接服务器、如何使用vscode的Remote-SSH 插件连接服务器、如何修改用户密码、如何从终端拷贝文件、免密登录等。</p>
-<span id="more"></span>
-<h2 id="SSH登录"><a href="#SSH登录" class="headerlink" title="SSH登录"></a>SSH登录</h2><p>​        ssh登录是最常见的方式，可以直接在shell窗口下用命令连接。使用这种方式需要对shell命令的使用有一定熟练度，熟悉使用Vim等。</p>
-<p>ssh登录的命令：</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span> </span><br></pre></td></tr></table></figure>
-<p>ssh免密登录：</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ssh-copy-id -<span class="selector-tag">i</span> ~/.ssh/id_rsa<span class="selector-class">.pub</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
-<p>scp拷贝文件</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">scp -n <span class="selector-attr">[file path]</span> -<span class="selector-tag">p</span> <span class="selector-attr">[Port]</span> <span class="selector-attr">[UserName]</span>@<span class="selector-attr">[HostName]</span></span><br></pre></td></tr></table></figure>
-<p>ssh生成公钥和私钥(最简单的，不添加邮箱、用户名和密码)</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen -t ras</span></span><br></pre></td></tr></table></figure>
-<h2 id="Remote-SSH"><a href="#Remote-SSH" class="headerlink" title="Remote-SSH"></a>Remote-SSH</h2><p>​        Vscode这个插件我觉得很好用，用这个插件和在本地用Vscode打开一个文件夹一样，非常方便，但是需要配置一下：</p>
-<ol>
-<li>点 ’+‘创建连接</li>
-</ol>
-<p><img data-src="./image-20230313171800058.png" alt="image-20230313171800058"></p>
-<ol>
-<li>输入：<code>[UserName]@[HostName]:[Port]</code></li>
-</ol>
-<p><img data-src="./image-20230313171729967.png" alt="image-20230313171729967"></p>
-<ol>
-<li><p>输入密码</p>
-</li>
-<li><p>打开目录</p>
-<p><img data-src="./image-20230313171950894.png" alt="image-20230313171950894"></p>
-</li>
-<li><p>选择对应目录</p>
-</li>
-</ol>
-<p><img data-src="./image-20230313172028243.png" alt="image-20230313172028243"></p>
-<p>也可以直接修改插件的配置文件</p>
-<p>​    <img data-src="./image-20230313172324063.png" alt="image-20230313172324063">    </p>
-<p>配置文件格式如下：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Host</span><span class="meta"> [服务器名称(自己取个名字就好)]</span></span><br><span class="line">    <span class="attribute">HostName</span><span class="meta"> [ip]</span></span><br><span class="line">    <span class="attribute">Port</span><span class="meta"> [Port]</span></span><br><span class="line">    <span class="attribute">User</span><span class="meta"> [UserName]</span></span><br></pre></td></tr></table></figure>
-<p>修改完成后重启一下VScode就可以了。</p>
-<h3 id="配置免密登录"><a href="#配置免密登录" class="headerlink" title="配置免密登录"></a>配置免密登录</h3><p>​        SSH配置完免密登录后，VScode登录也可以免密登录。</p>
-<p>​        也可以修改authorized_keys文件，把本地电脑的公钥拷贝到这个文件当中。</p>
-<p><img data-src="./image-20230313172547837.png" alt="image-20230313172547837"></p>
-<p>​        获取公钥的命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>配置环境</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>时空图神经网络综述</title>
-    <url>/2023/03/11/16-56-27/</url>
-    <content><![CDATA[<h1 id="时空图神经网络"><a href="#时空图神经网络" class="headerlink" title="时空图神经网络"></a>时空图神经网络</h1><p>​        毕设相关，看一下时空图神经网络的东西。导师让整理一下时空图网络的综述，简单记录一下。</p>
-<span id="more"></span>
-<p>​        时空图神经网络的分类关系图示如下：</p>
-<p><img data-src="./STGNN综合图-color.png" alt="STGNN综合图-color"></p>
-<h1 id="混合模型时空图网络"><a href="#混合模型时空图网络" class="headerlink" title="混合模型时空图网络"></a>混合模型时空图网络</h1><p>混和时空图网络指的是针对时间维度的信息，使用一种新的机器学习算法（RNN、1-D conv、Transformer）来提取特征的时空图网络。代表特征是分别考虑了时间维度和空间维度，有两种机器学习算法分别提取时间和空间的图结构信息。</p>
-<h2 id="空间模块"><a href="#空间模块" class="headerlink" title="空间模块"></a>空间模块<img data-src="./STGNN综合图 Hybrid.png" alt="STGNN综合图 Hybrid"></h2><h3 id="频谱域图神经网络"><a href="#频谱域图神经网络" class="headerlink" title="频谱域图神经网络"></a>频谱域图神经网络</h3><p>最常见的是使用基于频谱域的图卷积的方式来获取空间信息，STGCN就是使用的切比雪夫GCN。</p>
-<p>代表算法：STGCN、StemGNN、GCLSTM、CGTransfo</p>
-<h3 id="空间域图神经网络"><a href="#空间域图神经网络" class="headerlink" title="空间域图神经网络"></a>空间域图神经网络</h3><p>随着空间域图神经网络的发展，很多算法开始使用空间图神经网络对时空图的空间维度信息进行建模，代表性算法：RGNN(使用带有跳跃连接的递归图神经网络）</p>
-<h4 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h4><p>在MTGNN中使用了带有跳跃连接的图卷积网络，同时GCN也被应用于Structural RNN中。</p>
-<h4 id="GAT"><a href="#GAT" class="headerlink" title="GAT"></a>GAT</h4><p>带有attention机制的图神经网络（Graph Attention Network）也可用于对空间维度信息进行建模，代表算法： HST-GNN（使用GAT级联Graph Transformer和一个分层池化机制）、A2GNN（使用GAT和自动图学习器来提高预测性能）。</p>
-<h4 id="GIN"><a href="#GIN" class="headerlink" title="GIN"></a>GIN</h4><p>GIN也被用于时空图网络（模拟脑图，表示大脑中的连接）</p>
-<h4 id="Gated-GNN"><a href="#Gated-GNN" class="headerlink" title="Gated GNN"></a>Gated GNN</h4><p>FG-GAGA中使用带有门控的GNN来对空间信息进行建模</p>
-<h3 id="Graph-Transformer"><a href="#Graph-Transformer" class="headerlink" title="Graph Transformer"></a>Graph Transformer</h3><p>随着Graph Transformer的引入，图神经网络取得了重大进展，同时处理图结构的数据是Transformer这一体系结构的一项重要扩展。Graph Transformer使用自注意机制来更新节点的表示，并已被证明可以在几个基于图的任务上实现了最先进的结果。</p>
-<p>代表算法：TransMOT、Forecaster</p>
-<p>HST-GNN网络中也使用GAT连接了一个Graph Transformer。</p>
-<h2 id="时间模块"><a href="#时间模块" class="headerlink" title="时间模块"></a>时间模块</h2><h3 id="1-D卷积神经网络"><a href="#1-D卷积神经网络" class="headerlink" title="1-D卷积神经网络"></a>1-D卷积神经网络</h3><p>最经典的是在STGCN中，使用1D-CNN来对时间维度信息进行建模；同时MTGNN中也是用1D-CNN作为一个初始层。</p>
-<h3 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h3><p>RNN和他的各种变化（GLU、LSTM）都被广泛应用于混合时空图网络中，使用RNN对时间维度信息进行建模。</p>
-<p>代表算法：Structural RNN、FG-GAGA GNN（使用GRU）、MResGNN(使用了GRU和LSTM)</p>
-<p>HST-GNN中在一个更广泛的encoder-decoder架构中使用了2个带注意力机制的LSTM。</p>
-<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>代表算法：TransMOT、Forecaster、STAGIN、GCTransfo</p>
-<h1 id="单图神经网络"><a href="#单图神经网络" class="headerlink" title="单图神经网络"></a>单图神经网络</h1><p>在时空图网络中，另一种对时间维度建模的方法是将时间信息定义为图神经网络内部的一个结构。</p>
-<p><img data-src="./STGNN综合图.solo.png" alt="STGNN综合图.solo"></p>
-<h3 id="将时间定义为图的边"><a href="#将时间定义为图的边" class="headerlink" title="将时间定义为图的边"></a>将时间定义为图的边</h3><p>在GSTGCN中将时间定义为一条边，将空间邻接矩阵修改为一个时空邻接矩阵。</p>
-<h3 id="将时间作为信号输入"><a href="#将时间作为信号输入" class="headerlink" title="将时间作为信号输入"></a>将时间作为信号输入</h3><p>STGDN中使用时间层次模型将时间作为输入信号输入到GAT中。此外，在CausalGNN中使用门控的因果扩展块来处理时间输入，该块的输入与空间域一个类似的双块结构的输出并行输入到一个动态的GCN中。</p>
-<h3 id="将时间维度建模子图"><a href="#将时间维度建模子图" class="headerlink" title="将时间维度建模子图"></a>将时间维度建模子图</h3><p>U-STGCN中将时间建模为GIN中的一个子图；ASTGCN中使用时间相似度图来解释时间域，形成了一个多图集。</p>
-<h3 id="使用Sandwich结构"><a href="#使用Sandwich结构" class="headerlink" title="使用Sandwich结构"></a>使用Sandwich结构</h3><p>ST-GNN中使用两个1D-CNN来建模时间，在该结构中1D-CNN被作为子模块加在GCN之间。</p>
-<h3 id="时间作为滤波器"><a href="#时间作为滤波器" class="headerlink" title="时间作为滤波器"></a>时间作为滤波器</h3><p>在GCN中引入时间和空间作为多元积分的莱布尼茨滤波器。</p>
-]]></content>
-      <tags>
-        <tag>时空图神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>腾讯云服务器+Hexo 搭建博客（二）</title>
     <url>/2023/03/11/14-27-31/</url>
     <content><![CDATA[<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="本地环境"><a href="#本地环境" class="headerlink" title="本地环境"></a>本地环境</h2><p>​        本地环境在第一篇Hexo+Gitee中有介绍，基本一摸一样的，还是安装git、Node.js和Hexo。</p>
@@ -396,107 +497,6 @@
 ]]></content>
       <tags>
         <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SeCap-AGPReID</title>
-    <url>/2025/03/04/15-19-48/</url>
-    <content><![CDATA[<h1 id="空地跨视角行人重识别"><a href="#空地跨视角行人重识别" class="headerlink" title="空地跨视角行人重识别"></a>空地跨视角行人重识别</h1><h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p>本项目开始于2024年3月，2024年11月结束。主要研究空中和地面视角的跨视角ReID任务。作为xx项目鲁棒跟踪模块的预研方向，项目主要贡献为：</p>
-<ul>
-<li>提出了一种自校准自学习的提示学习方法SeCap，用于解决AGPReID任务中的视角差异问题</li>
-<li>提出了两个大规模的数据集 LAGPeR和G2APS-ReID</li>
-<li>SeCap在所有AGPReID数据集上均取得了SOTA结果</li>
-</ul>
-<h3 id="最终项目成果："><a href="#最终项目成果：" class="headerlink" title="最终项目成果："></a>最终项目成果：</h3><ul>
-<li>2025 CVPR Accepted. Final Rating： 5 5 4</li>
-<li>一项发明专利：一种基于自进化视觉提示学习的空地协同目标识别方法（申请阶段）<span id="more"></span>
-<img data-src="./LAGPeR.png" alt="图1 AGPReID任务"></li>
-</ul>
-<p>项目地址：<a href="https://github.com/zhengye1995/SeCap-AGPReID">https://github.com/zhengye1995/SeCap-AGPReID</a></p>
-<h2 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h2><h3 id="数据集："><a href="#数据集：" class="headerlink" title="数据集："></a>数据集：</h3><p>LAGPeR包含4231个ID，63841张图片，包括21个相机，分为地面平视、地面斜视和空中俯视三个视角。G2APS-ReID包含2788个ID，200864张图片，包括2个相机，分为地面平视和空中俯视两个视角。LAGPeR为本项目收集、标注、划分和构建的数据集；G2APS-ReID为从一个大规模的行人搜索数据集<a href="https://dl.acm.org/doi/abs/10.1145/3581783.3612105">G2APS</a>中重构的数据集。</p>
-<p><img data-src="./data.png" alt="表1 数据集信息"></p>
-<p>G2APS-ReID数据集包含2个实验设置：$G \rightarrow A$ 和 $A \rightarrow G$；LAGPeR数据集包含3个实验设置：$G \rightarrow G$、$G \rightarrow A$ 和 $G \rightarrow A+G$。其中，$G \rightarrow A$表示在地面视角下图像做查询（query），在空中视角下图像做图库（gallery）；$G \rightarrow A+G$表示在地面视角做查询，图库则有地面视角和空中视角共同组成。</p>
-<p><img data-src="./data_split.png" alt="表2 数据集划分"></p>
-<h3 id="模型："><a href="#模型：" class="headerlink" title="模型："></a>模型：</h3><p>本项目主要研究AGPReID任务，因此主要关注视角差异对ReID模型的影响。本项目提出了一种自校准自学习的提示学习方法SeCap，用于解决AGPReID任务中的视角差异问题。SeCap的整体框架，如下图所示，采用了编解码器变压器架构。该编码器是一个添加了视角解耦能力的标准的ViT。与传统的ViT相比，我们的方法包含了一个视图令牌，并在每一层对Cls令牌进行分层解耦，有效地在Cls令牌中分离了视角特定和视角独立的特征，同时从图像中提取视觉特征。我们从<a href="https://arxiv.org/abs/2403.14513">VDT</a>中汲取灵感，使用了一个视图分类器来约束视图标记。利用正交损失来确保透视特征的完全分离。该解码器包括提示校准模块（PRM）和局部特征细化模块（LFRM）。PRM根据视图解耦信息自适应地生成和校准不同视角的提示。同时，LFRM利用来自PRM的重新校准的提示来解码视觉特征中的局部特征。<br><img data-src="./Secap.png" alt="图2 SeCap整体框架"></p>
-<h4 id="提示重校准模块"><a href="#提示重校准模块" class="headerlink" title="提示重校准模块"></a>提示重校准模块</h4><p>提示重新校准模块（PRM）是基于变压器译码器架构设计的，旨在自适应地生成适合不同视角的提示。具体来说，这个模块初始化并维护一组提示${[{Prompt}_1，{Prompt}_2，\dots，{Prompt}_L]}$，其中$L$是一个表示提示长度的超参数。在提示的重新校准过程中，该模块接收到来自主干网络的视图解耦特征。如图2（a）所示，该模块最初通过多头交叉注意将视图解耦特征整合到可学习提示中，从而增强了提示对视觉特征中视点不变信息的关注。随后，采用多头注意机制对提示序列中的每个提示的信息进行合并和校准，确保视图解耦特征的全面集成。最后，应用前馈网络（FFN）来生成专门针对视图解耦特性而定制的重新校准的提示。</p>
-<h4 id="局部特征细化模块"><a href="#局部特征细化模块" class="headerlink" title="局部特征细化模块"></a>局部特征细化模块</h4><p>局部特征模块是一个基于TransFormer的解码器，如图所示，它利用PRM重新校准后的特征提示$P<em>{re}$对骨干网络输出的视觉特征$F</em>{local}$进行解耦。重新校准的提示融合了全局视图解耦特征的信息，能够指导LFRM解码出局部特征中与视角无关特征，从而实现局部特征与全局特征的对齐。具体来说LPRM由双向注意力块和特征输出模块组成。双向注意力模块在在提示到图像编码（prompt-to-image encoding）和图像编码到提示（image-to-prompt encoding）两个方向上并行运用自注意力（self-attention）和交叉注意力（cross-attention）动态更新并增强所有特征表示。通过双向注意力，LPRM可以高效的融合并更新视觉特征的局部信息和特征提示中的解耦信息。为了保持解码模块的轻量化，我们在双向注意力模块中只堆叠两个双向注意力块。同时，在双向注意力模块后，特征输出模块使用交叉注意力和自注意力对双向注意力模块输出的局部视觉特征和提示特征进行进一步整合，从而解码出局部视觉特征中视角无关的特征。</p>
-<h3 id="项目结果"><a href="#项目结果" class="headerlink" title="项目结果"></a>项目结果</h3><h4 id="对比实验结果"><a href="#对比实验结果" class="headerlink" title="对比实验结果"></a>对比实验结果</h4><p>在LAGPeR和G2APS-ReID数据集上，SeCap均取得了SOTA的结果。<br><img data-src="./experience.png" alt="表3 LAGPeR和G2APS-ReID的对比实验结果"><br>在 AG-ReID、AG-ReIDv2和CARGO上的结果。<br><img data-src="./experience2.png" alt="表4-1 CARGO对比实验结果"><br><img data-src="./experience4.png" alt="表4-2 AG-ReIDv1对比实验结果"><br><img data-src="./experience3.png" alt="表4-3 AG-ReIDv2对比实验结果"></p>
-<h4 id="消融实验结果："><a href="#消融实验结果：" class="headerlink" title="消融实验结果："></a>消融实验结果：</h4><p>整体消融实验，验证PRM、LFRM、VDT的效果：<br><img data-src="./ab1.png" alt="表5-1 吗，模块整体消融实验"><br>模块消融实验，研究PRM、LFRM的各种实现方式：<br><img data-src="./ab2.png" alt="表5-1 模块内部消融实验"></p>
-<h4 id="可视化结果："><a href="#可视化结果：" class="headerlink" title="可视化结果："></a>可视化结果：</h4><p>t-SNE可视化结果：<br><img data-src="./visul1.png" alt="tsne可视化结果"><br>检索结果可视化：<br><img data-src="./performance.png" alt="检索结果"><br>Attention_Map可视化：<br><img data-src="./attention_map.png" alt="Attention Map结果"><br>参数分析可视化：<br><img data-src="./visul2.png" alt="超参数分析"></p>
-]]></content>
-      <tags>
-        <tag>ReID</tag>
-        <tag>项目展示</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ST-Track</title>
-    <url>/2025/03/05/11-11-10/</url>
-    <content><![CDATA[<h1 id="卫星视频运动目标检测与跟踪"><a href="#卫星视频运动目标检测与跟踪" class="headerlink" title="卫星视频运动目标检测与跟踪"></a>卫星视频运动目标检测与跟踪</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目主要目的为参加ICPR2024卫星视频运动目标检测与跟踪比赛，比赛地址<a href="https://satvideodt2024.github.io/">https://satvideodt2024.github.io/</a>。比赛包括两个赛道：Track1：Tiny moving object detection in satellite videos；Track2：Multiple-object tracking in satellite videos。本项目主要介绍本人负责的多目标跟踪部分，针对卫星视频运动目标的跟踪任务。<br>Track1基于DSFNet，提出针对卫星视频运动目标的HM-DSFNet++,在测试数据集上达到<strong>48.50</strong>的mAP; Track2基于ByteTrack框架，提出针对卫星视频运动目标的两阶段匹配算法ST-Track，在测试数据集上达到<strong>44.39</strong>的MOTA。<br><span id="more"></span><br><img data-src="result.png" alt="Result of Track1 and Track2"></p>
-<h3 id="项目成果"><a href="#项目成果" class="headerlink" title="项目成果"></a>项目成果</h3><ul>
-<li>Track1：Tiny moving object detection in satellite videos. The Second place in the final ranking.</li>
-<li>Track2：Multiple-object tracking in satellite videos. The Second place in the final ranking.</li>
-<li>论文：The Two Challenge on Moving Object Detection and Tracking in Satellite Videos: Methods and Results. ICPR2024.<br><center class="half">
-<img data-src="./track1.png" width="200">
-<img data-src="./track2.png" width="200">
-</center><h2 id="数据集介绍"><a href="#数据集介绍" class="headerlink" title="数据集介绍"></a>数据集介绍</h2>卫星视频多目标跟踪任务旨在定位多个感兴趣的对象，保持它们的身份，并在整个视频中找出它们各自的轨迹。任务数据包括从 VISO（<a href="https://drive.google.com/drive/folders/1znU8wBDiqsMe0lRW5z9gqcsxKPhz1eIq">google Drive</a>，<a href="https://pan.baidu.com/share/init?surl=XAXfMljS5r8X74NLXDjaXQ">Baidu Drive</a>（提取代码：VISO））数据集中选择的95 个视频（视频 1 至 95），共计 28,500 帧。具体来说，视频 1 至 65 将用作训练集，视频 66 至 75 将用作验证集。将提供每个帧中每个对象的边界框注释和实例 ID。测试集由视频 76 至 95 组成，只提供第一帧的注释作为初始化。参与者要在训练集上训练自己的模型，并在验证集上验证其性能。然后，使用最终确定的模型在测试集上生成跟踪结果。</li>
-</ul>
-<p>数据集详细介绍见：<a href="https://satvideodt2024.github.io/">https://satvideodt2024.github.io/</a></p>
-<!-- <center><img data-src="./ST-Track/demo.gif" width = "100%" height = "100%"></center> -->
-<video src="./demo.mp4" type="video/avi" controls="controls" width="100%" height="100%">
-</video>
-
-<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>卫星视频运动目标的跟踪主要难点在于，卫星高空拍摄的目标尺寸非常小（目标小于5px），导致外观特征完全失真，无法利用外观特征进行数据关联。同时由于外观特征严重模糊，目标检测算法的置信度普遍偏低，导致跟踪过程出现严重的目标丢失和错误匹配问题。因此如何抑制检测的错误结果，同时对低置信度的外观模糊目标进行匹配是卫星视频目标跟踪的主要难念。<br>因此，本项目基于ByteTrack框架提出了一种针对卫星视频运动目标的两阶段匹配算法两阶段匹配方法（ST-Track），以Track1的检测结果作为MOT任务的输入，采用综合关联机制保证消失目标的轨迹连续性，设计基于空间位置关系和外观特征的细粒度相似性评估，避免错误关联，提高跟踪稳定性，最后采用智能轨迹维护与更新，结合基于过滤器的运动选择机制，进一步提升跟踪精度和鲁棒性。最终在测试数据集上达到44.39的MOTA。<br><img data-src="./ST-Track.png" alt="ST-Track"></p>
-<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p>跟踪轨迹可视化：</p>
-<p><video src="./track_gj.mp4" type="video/avi" controls="controls" width="100%" height="100%">
-</video><br><!-- <video src='./ST-Track/track_result.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
-</video> --><br><!-- <video src='./ST-Track/track_result2.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
-</video> --><br>跟踪结果可视化：</p>
-<p><video src="./track_result3.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
-</video></p>
-<p><video src="./track_result4.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
-</video></p>
-<p><video src="./track_result5.mp4" type="video/mp4" controls="controls" width="100%" height="100%">
-</video><br><!-- <video src='./ST-Track/track_result6.mp4' type='video/mp4' controls='controls'  width='100%' height='100%'>
-</video> --></p>
-]]></content>
-      <tags>
-        <tag>MOT</tag>
-        <tag>项目展示</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>611-MOT</title>
-    <url>/2025/03/05/22-40-26/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>待更新。</p>
-]]></content>
-      <tags>
-        <tag>MOT</tag>
-        <tag>项目展示</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HL-Detector</title>
-    <url>/2025/03/05/22-41-51/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>待更新。</p>
-]]></content>
-      <tags>
-        <tag>项目展示</tag>
-        <tag>目标检测</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RoboMaster-CV</title>
-    <url>/2025/03/05/22-40-15/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>待更新。</p>
-]]></content>
-      <tags>
-        <tag>项目展示</tag>
-        <tag>RoboMaster</tag>
-        <tag>CV</tag>
       </tags>
   </entry>
 </search>
