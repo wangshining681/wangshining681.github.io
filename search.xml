@@ -86,8 +86,52 @@
   <entry>
     <title>RoboMaster-CV</title>
     <url>/2025/03/05/22-40-15/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>待更新。</p>
+    <content><![CDATA[<h1 id="RoboMaster-CV"><a href="#RoboMaster-CV" class="headerlink" title="RoboMaster-CV"></a>RoboMaster-CV</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>RoboMaster-CV是为西北工业大学WMJ机器人战队开发的一个针对RoboMaster比赛的视觉识别模块，旨在提高机器人在比赛中的自主性和准确性。该模块基于OpenCV库，通过图像处理和机器学习技术，实现了目标检测、跟踪、识别、定位等功能，为机器人提供了强大的视觉支持。<br><span id="more"></span><br><img data-src="./视觉任务.png" alt="视觉任务"></p>
+<h3 id="项目成果："><a href="#项目成果：" class="headerlink" title="项目成果："></a>项目成果：</h3><ul>
+<li>RoboMaster2021机甲大师步兵竞速与智能射击(中部分区赛), 一等奖;  2021.08</li>
+<li>RoboMaster2021机甲大师步兵竞速与智能射击全国总决赛, 一等奖;  2021.08</li>
+<li>RoboMaster2021机甲大师超级对抗赛(中部分区赛), 一等奖; 2021.08</li>
+<li>RoboMaster2021机甲大师超级对抗赛全国总决赛, 24强; 2021.08</li>
+<li>RoboMaster2021机甲大师高校联盟赛步兵对抗赛(西北站), 甲级队伍二等奖；2021.04</li>
+<li>RoboMaster2021机甲大师高校联盟赛3V3对抗赛(西北站), 冠军; 2021.04</li>
+<li>RoboMaster2021机甲大师高校联盟赛3V3对抗赛(山东站), 冠军; 2021.04</li>
+<li><strong>软件著作权：</strong> 基于OpenCV的装甲板识别与定位系统V1.0</li>
+<li><strong>软件著作权：</strong> 基于OpenCV的能量机关识别及运动位置预测系统V1.0</li>
+</ul>
+<h2 id="功能特点"><a href="#功能特点" class="headerlink" title="功能特点"></a>功能特点</h2><ul>
+<li>目标检测：使用传统视觉处理的方法进行目标检测，能够快速部署到移动设备(miniPC)中并保证高度实时性(10ms/帧)。算法基于OpenCV进行视觉图像预处理轮廓提取、特征匹配等操作，能够准确装甲板的目标。</li>
+<li>目标识别：使用HOG+SVM的数字识别算法，对装甲板数字ID进行识别，确保识别目标的准确性。</li>
+<li>目标跟踪：针对场上相同ID的目标唯一性，基于决策树对装甲板目标进行跟踪目标匹配及筛选。同时使用卡尔曼滤波器进行目标跟踪，保证目标在运动过程中的稳定性。</li>
+<li>目标定位：使用基于特征点匹配的算法，对装甲板进行定位，确保目标位置信息的准确性。同时开发单双目切换的视觉定位算法，确保定位系统的稳定性。</li>
+<li>系统集成：将上述功能模块进行集成，实现一个完整的视觉识别系统，为机器人提供实时、准确的视觉信息。</li>
+</ul>
+<h2 id="技术优势"><a href="#技术优势" class="headerlink" title="技术优势"></a>技术优势</h2><ul>
+<li>高实时性：基于OpenCV库，算法高度实时，能够满足RoboMaster比赛对实时性的要求。</li>
+<li>低算力要求：算法部署在miniPC上，对硬件要求较低，能够满足RoboMaster比赛对硬件性能的要求。</li>
+<li>高准确性：算法经过多次优化和测试，能够准确识别和跟踪目标，提高比赛中的自主性和准确性。</li>
+<li>灵活可扩展：算法模块化设计，易于扩展和升级，能够满足未来比赛的需求。</li>
+</ul>
+<p>检测结果可视化：</p>
+<video src="./识别.mp4" type="video/avi" controls="controls">
+</video>
+
+
+<h2 id="效果展示："><a href="#效果展示：" class="headerlink" title="效果展示："></a>效果展示：</h2><p>识别第一视角效果可视化：<br><img data-src="./自瞄.gif" alt="自瞄第一视角"></p>
+<p>自瞄测试视频-击打旋转装甲板：</p>
+<video src="./自瞄1.mp4" type="video/avi" controls="controls">
+</video>
+
+<p>自瞄测试视频-哨兵机器人自动索敌：</p>
+<video src="./自瞄2.mp4" type="video/avi" controls="controls">
+</video>
+
+<p>自瞄测试视频-击打快速直线移动目标：</p>
+<video src="./自瞄3.mp4" type="video/avi" controls="controls">
+</video>
+
+<p>自瞄测试视频-跟踪可视化：</p>
+<video src="./雷达.mp4" type="video/avi" controls="controls">
+</video>
 ]]></content>
       <tags>
         <tag>项目展示</tag>
