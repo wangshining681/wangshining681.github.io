@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>611-MOT</title>
-    <url>/2025/03/05/22-40-26/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>待更新。</p>
-]]></content>
-      <tags>
-        <tag>MOT</tag>
-        <tag>项目展示</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HL-Detector</title>
-    <url>/2025/03/05/22-41-51/</url>
+    <url>/2023/05/05/22-41-51/</url>
     <content><![CDATA[<span id="more"></span>
 <p>待更新。</p>
 ]]></content>
@@ -85,7 +74,7 @@
   </entry>
   <entry>
     <title>RoboMaster-CV</title>
-    <url>/2025/03/05/22-40-15/</url>
+    <url>/2023/08/05/22-40-15/</url>
     <content><![CDATA[<h1 id="RoboMaster-CV"><a href="#RoboMaster-CV" class="headerlink" title="RoboMaster-CV"></a>RoboMaster-CV</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>RoboMaster-CV是为西北工业大学WMJ机器人战队开发的一个针对RoboMaster比赛的视觉识别模块，旨在提高机器人在比赛中的自主性和准确性。该模块基于OpenCV库，通过图像处理和机器学习技术，实现了目标检测、跟踪、识别、定位等功能，为机器人提供了强大的视觉支持。<br><span id="more"></span><br><img data-src="./视觉任务.png" alt="视觉任务"></p>
 <h3 id="项目成果："><a href="#项目成果：" class="headerlink" title="项目成果："></a>项目成果：</h3><ul>
 <li>RoboMaster2021机甲大师步兵竞速与智能射击(中部分区赛), 一等奖;  2021.08</li>
@@ -141,7 +130,7 @@
   </entry>
   <entry>
     <title>ST-Track</title>
-    <url>/2025/03/05/11-11-10/</url>
+    <url>/2024/08/05/11-11-10/</url>
     <content><![CDATA[<h1 id="卫星视频运动目标检测与跟踪"><a href="#卫星视频运动目标检测与跟踪" class="headerlink" title="卫星视频运动目标检测与跟踪"></a>卫星视频运动目标检测与跟踪</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目主要目的为参加ICPR2024卫星视频运动目标检测与跟踪比赛，比赛地址<a href="https://satvideodt2024.github.io/">https://satvideodt2024.github.io/</a>。比赛包括两个赛道：Track1：Tiny moving object detection in satellite videos；Track2：Multiple-object tracking in satellite videos。本项目主要介绍本人负责的多目标跟踪部分，针对卫星视频运动目标的跟踪任务。<br>Track1基于DSFNet，提出针对卫星视频运动目标的HM-DSFNet++,在测试数据集上达到<strong>48.50</strong>的mAP; Track2基于ByteTrack框架，提出针对卫星视频运动目标的两阶段匹配算法ST-Track，在测试数据集上达到<strong>44.39</strong>的MOTA。<br><span id="more"></span><br><img data-src="result.png" alt="Result of Track1 and Track2"></p>
 <h3 id="项目成果"><a href="#项目成果" class="headerlink" title="项目成果"></a>项目成果</h3><ul>
 <li>Track1：Tiny moving object detection in satellite videos. The Second place in the final ranking.</li>
@@ -541,6 +530,44 @@
 ]]></content>
       <tags>
         <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xx1-MOT</title>
+    <url>/2024/11/05/22-40-26/</url>
+    <content><![CDATA[<h1 id="无人机复杂视角下的多目标跟踪"><a href="#无人机复杂视角下的多目标跟踪" class="headerlink" title="无人机复杂视角下的多目标跟踪"></a>无人机复杂视角下的多目标跟踪</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目基于两阶段匹配、ReID信息，实现了无人机复杂视角下的多目标跟踪。项目主要分为以下几个部分：</p>
+<ol>
+<li>数据集准备：收集无人机视角下的ReID数据集，包括视频、图像和ID标注文件；</li>
+<li>模型训练：使用YOLOv5s模型进行目标检测；训练针对无人机视角的重识别模型。</li>
+<li>跟踪算法实现：实现两阶段匹配算法，结合ReID信息、位置信息进行匹配。为应对无人机扫视视角的跟踪任务，融合光流和ReID信息进行位置无关的目标跟踪。</li>
+<li>结果可视化：将跟踪结果可视化。<span id="more"></span>
+<h2 id="项目可视化结果"><a href="#项目可视化结果" class="headerlink" title="项目可视化结果"></a>项目可视化结果</h2>由于项目保密要求，只展示在可公开数据集上的效果。</li>
+</ol>
+<p>无人机扫视视角下，目标跟踪结果可视化。视频为合成数据集，目标基于SAM分割背景，并按照一定运动逻辑与底图融合，模拟目标移动。<br>同时模拟无人机扫视视角，只有扫视框内的图像被用于检测和跟踪。</p>
+<p>扫视视角下运动目标（大图）：</p>
+<!-- <video src='./xx1-MOT/demo1.mp4' type='video/mp4' controls='auto' >
+</video> -->
+<video src="./demo1.mp4" type="video/mp4" controls="controls">
+</video>
+
+<p>扫视视角下运动目标（小图）：</p>
+<video src="./demo3.mp4" type="video/mp4" controls="controls" width="500">
+</video>
+
+<p>扫视视角下静止目标（大图）：</p>
+<video src="./demo2.mp4" type="video/mp4" controls="controls">
+</video>
+
+<p>扫视视角下静止目标（小图）：</p>
+<video src="./demo4.mp4" type="video/mp4" controls="controls" width="500">
+</video>
+
+<p>无人机运动下，多目标跟踪效果：</p>
+<video src="./demo5.mp4" type="video/mp4" controls="controls">
+</video>]]></content>
+      <tags>
+        <tag>MOT</tag>
+        <tag>项目展示</tag>
       </tags>
   </entry>
 </search>
